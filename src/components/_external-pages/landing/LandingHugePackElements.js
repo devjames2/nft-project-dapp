@@ -6,6 +6,7 @@ import { Box, Grid, Button, Container, Typography } from '@mui/material';
 import { PATH_PAGE } from '../../../routes/paths';
 //
 import { varFadeInUp, MotionInView } from '../../animate';
+import AppTopRelated from './AppTopRelated';
 
 // ----------------------------------------------------------------------
 
@@ -88,14 +89,14 @@ export default function LandingHugePackElements() {
             <ContentStyle>
               <MotionInView variants={varFadeInUp}>
                 <Typography component="p" variant="overline" sx={{ mb: 2, color: 'text.secondary' }}>
-                  Interface Starter Kit
+                  NFT
                 </Typography>
               </MotionInView>
 
               <MotionInView variants={varFadeInUp}>
                 <Typography variant="h2" sx={{ mb: 3 }}>
-                  Huge pack <br />
-                  of elements
+                  Now <br />
+                  Trading
                 </Typography>
               </MotionInView>
 
@@ -110,7 +111,7 @@ export default function LandingHugePackElements() {
                 </Typography>
               </MotionInView>
 
-              <MotionInView variants={varFadeInUp}>
+              {/* <MotionInView variants={varFadeInUp}>
                 <Button
                   size="large"
                   color="inherit"
@@ -120,20 +121,14 @@ export default function LandingHugePackElements() {
                 >
                   View All Components
                 </Button>
-              </MotionInView>
+              </MotionInView> */}
             </ContentStyle>
           </Grid>
 
           <Grid item xs={12} md={8} dir="ltr">
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                position: 'relative',
-                justifyContent: 'center'
-              }}
-            >
-              {[...Array(3)].map((_, index) => (
+            <Box>
+              <AppTopRelated />
+              {/* {[...Array(3)].map((_, index) => (
                 <ScreenStyle
                   key={index}
                   threshold={0.72}
@@ -165,7 +160,7 @@ export default function LandingHugePackElements() {
                     src={`/static/home/screen_${isLight ? 'light' : 'dark'}_${index + 1}.png`}
                   />
                 </ScreenStyle>
-              ))}
+              ))} */}
             </Box>
           </Grid>
         </Grid>

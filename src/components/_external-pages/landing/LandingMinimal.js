@@ -3,6 +3,7 @@ import { alpha, useTheme, styled } from '@mui/material/styles';
 import { Box, Grid, Card, Container, Typography, useMediaQuery } from '@mui/material';
 //
 import { varFadeInUp, MotionInView, varFadeInDown } from '../../animate';
+import AppNewInvoice from './AppNewInvoice';
 
 // ----------------------------------------------------------------------
 
@@ -100,17 +101,17 @@ export default function LandingMinimalHelps() {
         <Box sx={{ mb: { xs: 10, md: 25 } }}>
           <MotionInView variants={varFadeInUp}>
             <Typography component="p" variant="overline" sx={{ mb: 2, color: 'text.secondary', textAlign: 'center' }}>
-              Minimal
+              NFT
             </Typography>
           </MotionInView>
           <MotionInView variants={varFadeInDown}>
             <Typography variant="h2" sx={{ textAlign: 'center' }}>
-              What minimal helps you?
+              Top collections over last 7 days
             </Typography>
           </MotionInView>
         </Box>
-
-        <Grid container spacing={isDesktop ? 10 : 5}>
+        <AppNewInvoice />
+        {/* <Grid container spacing={isDesktop ? 10 : 5}>
           {CARDS.map((card, index) => (
             <Grid key={card.title} item xs={12} md={4}>
               <MotionInView variants={varFadeInUp}>
@@ -137,7 +138,7 @@ export default function LandingMinimalHelps() {
               </MotionInView>
             </Grid>
           ))}
-        </Grid>
+        </Grid> */}
       </Container>
     </RootStyle>
   );

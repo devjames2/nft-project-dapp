@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 import { Box, Grid, Container, Typography } from '@mui/material';
 //
 import { MotionInView, varFadeInUp, varFadeInDown } from '../../animate';
+import AppTopRelated from './AppTopRelated';
 
 // ----------------------------------------------------------------------
 
@@ -52,13 +53,13 @@ export default function LandingDarkMode() {
             <ContentStyle>
               <MotionInView variants={varFadeInUp}>
                 <Typography component="p" variant="overline" sx={{ mb: 2, color: 'text.disabled', display: 'block' }}>
-                  Easy switch between styles.
+                  NFT
                 </Typography>
               </MotionInView>
 
               <MotionInView variants={varFadeInUp}>
                 <Typography variant="h2" sx={{ mb: 3, color: 'common.white' }}>
-                  Dark mode
+                  Comming Soon
                 </Typography>
               </MotionInView>
 
@@ -71,12 +72,13 @@ export default function LandingDarkMode() {
           </Grid>
 
           <Grid item xs={12} md={7} sx={{ position: 'relative' }}>
-            <MotionInView threshold={0.5} variants={varFadeInUp}>
+            <AppTopRelated />
+            {/* <MotionInView threshold={0.5} variants={varFadeInUp}>
               <img alt="light mode" src="/static/home/lightmode.png" />
             </MotionInView>
             <MotionInView threshold={0.5} variants={varFadeInDown} sx={{ top: 0, left: 0, position: 'absolute' }}>
               <img alt="dark mode" src="/static/home/darkmode.png" />
-            </MotionInView>
+            </MotionInView> */}
           </Grid>
         </Grid>
       </Container>
