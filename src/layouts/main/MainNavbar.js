@@ -1,7 +1,9 @@
 import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Icon } from '@iconify/react';
+import searchFill from '@iconify/icons-eva/search-fill';
 // material
 import { styled } from '@mui/material/styles';
-import { Box, Button, AppBar, Toolbar, Container } from '@mui/material';
+import { Box, Button, AppBar, Toolbar, Container, OutlinedInput, InputAdornment } from '@mui/material';
 // hooks
 import useOffSetTop from '../../hooks/useOffSetTop';
 // components
@@ -42,9 +44,23 @@ const ToolbarShadowStyle = styled('div')(({ theme }) => ({
   boxShadow: theme.customShadows.z8
 }));
 
+const SearchStyle = styled(OutlinedInput)(({ theme }) => ({
+  width: '100%',
+  height: 48,
+  transition: theme.transitions.create(['box-shadow', 'width'], {
+    easing: theme.transitions.easing.easeInOut,
+    duration: theme.transitions.duration.shorter
+  }),
+  '&.Mui-focused': { width: 320, boxShadow: theme.customShadows.z8 },
+  '& fieldset': {
+    borderWidth: `1px !important`,
+    borderColor: `${theme.palette.grey[500_32]} !important`
+  }
+}));
+
 // ----------------------------------------------------------------------
 
-export default function MainNavbar() {
+export default function MainNavbar({ filterName, onFilterName }) {
   const isOffset = useOffSetTop(100);
   const { pathname } = useLocation();
   const isHome = pathname === '/';
@@ -71,10 +87,18 @@ export default function MainNavbar() {
           <RouterLink to="/">
             <Logo />
           </RouterLink>
-          <Label color="info" sx={{ ml: 1 }}>
-            v2.6.0
-          </Label>
-          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ flexGrow: 1, pl: 10, pr: 5 }}>
+            <SearchStyle
+              value={filterName}
+              onChange={onFilterName}
+              placeholder="Search items, collections and accounts"
+              startAdornment={
+                <InputAdornment position="start">
+                  <Box component={Icon} icon={searchFill} sx={{ color: 'text.disabled' }} />
+                </InputAdornment>
+              }
+            />
+          </Box>
 
           <MHidden width="mdDown">
             <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />
