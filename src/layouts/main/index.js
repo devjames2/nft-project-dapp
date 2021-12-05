@@ -1,5 +1,6 @@
 import { Link as ScrollLink } from 'react-scroll';
 import { useLocation, Outlet } from 'react-router-dom';
+import { useState } from 'react';
 // material
 import { Box, Link, Container, Typography } from '@mui/material';
 // components
@@ -12,11 +13,16 @@ import MainFooter from './MainFooter';
 
 export default function MainLayout() {
   const { pathname } = useLocation();
+  const [filterName, setFilterName] = useState('');
   const isHome = pathname === '/';
+
+  const handleFilterByName = (event) => {
+    setFilterName(event.target.value);
+  };
 
   return (
     <>
-      <MainNavbar />
+      <MainNavbar filterName={filterName} onFilterName={handleFilterByName} />
       <div>
         <Outlet />
       </div>

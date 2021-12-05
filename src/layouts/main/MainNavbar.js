@@ -47,11 +47,12 @@ const ToolbarShadowStyle = styled('div')(({ theme }) => ({
 const SearchStyle = styled(OutlinedInput)(({ theme }) => ({
   width: '100%',
   height: 48,
+  color: 'white',
   transition: theme.transitions.create(['box-shadow', 'width'], {
     easing: theme.transitions.easing.easeInOut,
     duration: theme.transitions.duration.shorter
   }),
-  '&.Mui-focused': { width: 320, boxShadow: theme.customShadows.z8 },
+  '&.Mui-focused': { width: '100%', boxShadow: theme.customShadows.z8 },
   '& fieldset': {
     borderWidth: `1px !important`,
     borderColor: `${theme.palette.grey[500_32]} !important`
@@ -87,26 +88,29 @@ export default function MainNavbar({ filterName, onFilterName }) {
           <RouterLink to="/">
             <Logo />
           </RouterLink>
-          <Box sx={{ flexGrow: 1, pl: 10, pr: 5 }}>
-            <SearchStyle
-              value={filterName}
-              onChange={onFilterName}
-              placeholder="Search items, collections and accounts"
-              startAdornment={
-                <InputAdornment position="start">
-                  <Box component={Icon} icon={searchFill} sx={{ color: 'text.disabled' }} />
-                </InputAdornment>
-              }
-            />
-          </Box>
+
+          <MHidden width="mdDown">
+            <Box sx={{ flexGrow: 1, pl: 10, pr: 5 }}>
+              <SearchStyle
+                value={filterName}
+                onChange={onFilterName}
+                placeholder="Search items, collections and accounts"
+                startAdornment={
+                  <InputAdornment position="start">
+                    <Box component={Icon} icon={searchFill} sx={{ color: 'text.disabled' }} />
+                  </InputAdornment>
+                }
+              />
+            </Box>
+          </MHidden>
 
           <MHidden width="mdDown">
             <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />
           </MHidden>
 
-          <Button variant="contained" target="_blank" href="https://material-ui.com/store/items/minimal-dashboard/">
+          {/* <Button variant="contained" target="_blank" href="https://material-ui.com/store/items/minimal-dashboard/">
             Purchase Now
-          </Button>
+          </Button> */}
 
           <MHidden width="mdUp">
             <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />

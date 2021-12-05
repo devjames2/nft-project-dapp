@@ -29,7 +29,12 @@ export const PATH_PAGE = {
   faqs: '/faqs',
   page404: '/404',
   page500: '/500',
-  components: '/components'
+  components: '/components',
+  // Additional pages for NFT
+  exploreCollections: '/explore-collections',
+  create: '/asset/create',
+  profile: '/profile',
+  wallet: '/wallet'
 };
 
 export const PATH_DASHBOARD = {
