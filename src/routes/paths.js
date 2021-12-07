@@ -4,10 +4,16 @@ function path(root, sublink) {
   return `${root}${sublink}`;
 }
 
+const ROOTS_ASSET = '/asset';
 const ROOTS_AUTH = '/auth';
 const ROOTS_DASHBOARD = '/dashboard';
 
 // ----------------------------------------------------------------------
+
+export const PATH_ASSET = {
+  root: ROOTS_ASSET,
+  create: path(ROOTS_ASSET, '/create')
+};
 
 export const PATH_AUTH = {
   root: ROOTS_AUTH,
