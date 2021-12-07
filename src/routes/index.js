@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { Navigate, useRoutes, useLocation } from 'react-router-dom';
 // layouts
+import AssetCreate from '../pages/asset/AssetCreate';
 import MainLayout from '../layouts/main';
 import DashboardLayout from '../layouts/dashboard';
 import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
@@ -138,6 +139,11 @@ export default function Router() {
         { path: 'calendar', element: <Calendar /> },
         { path: 'kanban', element: <Kanban /> }
       ]
+    },
+    // Asset Routes
+    {
+      path: '/asset',
+      children: [{ path: 'create', element: <AssetCreate /> }]
     },
 
     // Main Routes
