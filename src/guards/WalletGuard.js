@@ -2,26 +2,23 @@ import { useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // hooks
-import useWallet from '../hooks/useWallet';
-// pages
-import ConnectWallet from '../pages/authentication/ConnectWallet';
+import { useWeb3React } from '@web3-react/core';
+import { InjectedConnector } from '@web3-react/injected-connector';
+// import useWallet from '../hooks/useWallet';
+
+WalletGuard.propTypes = {
+  children: PropTypes.node
+};
 
 export default function WalletGuard({ children }) {
-  const { isWalletAuthenticated } = useWallet();
-  const { pathname } = useLocation();
-  const [requestedLocation, setRequestedLocation] = useState(null);
-
-  if (!isWalletAuthenticated) {
-    if (pathname !== requestedLocation) {
-      setRequestedLocation(pathname);
-    }
-    return <ConnectWallet />;
+  const { connector, activate, active } = useWeb3React();
+  const injected = new InjectedConnector();
+  console.log(connector);
+  if (connector) {
+    console.log(connector);
+    console.log(children);
+    return <>{children}</>;
   }
-
-  if (requestedLocation && pathname !== requestedLocation) {
-    setRequestedLocation(null);
-    return <Navigate to={requestedLocation} />;
-  }
-
-  return <>{children}</>;
+  activate(injected);
+  return <></>;
 }

@@ -8,6 +8,7 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // guards
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
+import WalletGuard from '../guards/WalletGuard';
 // import RoleBasedGuard from '../guards/RoleBasedGuard';
 // components
 import LoadingScreen from '../components/LoadingScreen';
@@ -142,8 +143,17 @@ export default function Router() {
     },
     // Asset Routes
     {
-      path: '/asset',
-      children: [{ path: 'create', element: <AssetCreate /> }]
+      path: 'asset',
+      children: [
+        {
+          path: 'create',
+          element: (
+            <WalletGuard>
+              <AssetCreate />
+            </WalletGuard>
+          )
+        }
+      ]
     },
 
     // Main Routes

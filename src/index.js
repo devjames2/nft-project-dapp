@@ -55,6 +55,7 @@ import { AuthProvider } from './contexts/JWTContext';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { WalletProvider } from './contexts/WalletContext';
 
 // ----------------------------------------------------------------------
 
@@ -67,7 +68,9 @@ ReactDOM.render(
             <CollapseDrawerProvider>
               <BrowserRouter>
                 <AuthProvider>
-                  <App />
+                  <WalletProvider>
+                    <App />
+                  </WalletProvider>
                 </AuthProvider>
               </BrowserRouter>
             </CollapseDrawerProvider>
