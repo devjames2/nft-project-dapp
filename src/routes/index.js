@@ -66,8 +66,6 @@ export default function Router() {
         { path: 'verify', element: <VerifyCode /> }
       ]
     },
-
-    // Dashboard Routes
     {
       path: 'dashboard',
       element: (
@@ -82,7 +80,19 @@ export default function Router() {
         { path: 'analytics', element: <GeneralAnalytics /> },
         { path: 'banking', element: <GeneralBanking /> },
         { path: 'booking', element: <GeneralBooking /> },
-
+        {
+          path: 'assets',
+          children: [
+            { element: <Navigate to="/dashboard/assets/shop" replace /> },
+            { path: 'shop', element: <EcommerceShop /> },
+            { path: 'product/:name', element: <AssetsProductDetails /> },
+            { path: 'list', element: <EcommerceProductList /> },
+            { path: 'product/new', element: <EcommerceProductCreate /> },
+            { path: 'product/:name/edit', element: <EcommerceProductCreate /> },
+            { path: 'checkout', element: <EcommerceCheckout /> },
+            { path: 'invoice', element: <EcommerceInvoice /> }
+          ]
+        },
         {
           path: 'e-commerce',
           children: [
@@ -237,6 +247,7 @@ const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/GeneralA
 const GeneralBanking = Loadable(lazy(() => import('../pages/dashboard/GeneralBanking')));
 const GeneralBooking = Loadable(lazy(() => import('../pages/dashboard/GeneralBooking')));
 const EcommerceShop = Loadable(lazy(() => import('../pages/dashboard/EcommerceShop')));
+const AssetsProductDetails = Loadable(lazy(() => import('../pages/dashboard/AssetsProductDetails')));
 const EcommerceProductDetails = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductDetails')));
 const EcommerceProductList = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductList')));
 const EcommerceProductCreate = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductCreate')));

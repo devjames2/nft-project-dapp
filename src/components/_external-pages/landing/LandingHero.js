@@ -6,7 +6,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { Button, Box, Link, Container, Typography, Stack } from '@mui/material';
 // routes
-import { PATH_DASHBOARD } from '../../../routes/paths';
+import { PATH_DASHBOARD, PATH_PAGE } from '../../../routes/paths';
 //
 import { varFadeIn, varFadeInUp, varWrapEnter, varFadeInRight } from '../../animate';
 
@@ -80,7 +80,7 @@ export default function LandingHero() {
                 Discover, collect, and <br />
                 sell extraordinary <br />
                 <Typography component="span" variant="h1" sx={{ color: 'primary.main' }}>
-                  &nbsp;NFTs
+                  &nbsp;NFT
                 </Typography>
               </Typography>
             </motion.div>
@@ -110,6 +110,17 @@ export default function LandingHero() {
                 startIcon={<Icon icon={flashFill} width={20} height={20} />}
               >
                 Create
+              </Button>
+              <Button
+                sx={{ m: 1 }}
+                color="secondary"
+                size="large"
+                variant="contained"
+                component={RouterLink}
+                to={PATH_DASHBOARD.assets.productById}
+                startIcon={<Icon icon={flashFill} width={20} height={20} />}
+              >
+                Assets
               </Button>
             </motion.div>
           </ContentStyle>
