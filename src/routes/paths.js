@@ -12,7 +12,8 @@ const ROOTS_DASHBOARD = '/dashboard';
 
 export const PATH_ASSET = {
   root: ROOTS_ASSET,
-  create: path(ROOTS_ASSET, '/create')
+  create: path(ROOTS_ASSET, '/create'),
+  tokenDetail: path(ROOTS_ASSET, '/:contractAddress/:tokenId')
 };
 
 export const PATH_AUTH = {

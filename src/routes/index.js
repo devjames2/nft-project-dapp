@@ -152,6 +152,10 @@ export default function Router() {
               <AssetCreate />
             </WalletGuard>
           )
+        },
+        {
+          path: ':contractAddress/:tokenId',
+          element: <TokenDetail />
         }
       ]
     },
@@ -270,6 +274,7 @@ const Chat = Loadable(lazy(() => import('../pages/dashboard/Chat')));
 const Mail = Loadable(lazy(() => import('../pages/dashboard/Mail')));
 const Calendar = Loadable(lazy(() => import('../pages/dashboard/Calendar')));
 const Kanban = Loadable(lazy(() => import('../pages/dashboard/Kanban')));
+const TokenDetail = Loadable(lazy(() => import('../pages/asset/TokenDetail')));
 // Main
 const LandingPage = Loadable(lazy(() => import('../pages/LandingPage')));
 const About = Loadable(lazy(() => import('../pages/About')));
