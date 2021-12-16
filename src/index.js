@@ -43,6 +43,7 @@ import { store, persistor } from './redux/store';
 // contexts
 import { SettingsProvider } from './contexts/SettingsContext';
 import { CollapseDrawerProvider } from './contexts/CollapseDrawerContext';
+import { WalletProvider } from './contexts/WalletContext';
 // components
 import LoadingScreen from './components/LoadingScreen';
 
@@ -55,7 +56,6 @@ import { AuthProvider } from './contexts/JWTContext';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-import { WalletProvider } from './contexts/WalletContext';
 
 // ----------------------------------------------------------------------
 

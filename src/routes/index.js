@@ -144,9 +144,11 @@ export default function Router() {
     // Asset Routes
     {
       path: 'asset',
+      element: <DashboardLayout />,
       children: [
         {
           path: 'create',
+          // element: <AssetCreate />
           element: (
             <WalletGuard>
               <AssetCreate />

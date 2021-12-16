@@ -4,7 +4,9 @@ import { ethers, providers } from 'ethers';
 // ----------------------------------------------------------------------
 
 function getLibrary(provider, connector) {
-  return new ethers.providers.Web3Provider(provider); // this will vary according to whether you use e.g. ethers or web3.js
+  const library = new ethers.providers.Web3Provider(provider); // this will vary according to whether you use e.g. ethers or web3.js
+  // library.pollingInterval = 12000;
+  return library;
 }
 
 WalletProvider.propTypes = {

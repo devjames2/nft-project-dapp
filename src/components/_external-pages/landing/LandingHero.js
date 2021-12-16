@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { motion } from 'framer-motion';
 import flashFill from '@iconify/icons-eva/flash-fill';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
 import { Button, Box, Link, Container, Typography, Stack } from '@mui/material';

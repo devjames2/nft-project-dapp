@@ -9,14 +9,16 @@ import createAvatar from '../utils/createAvatar';
 export default function MyAvatar({ ...other }) {
   const { user } = useAuth();
 
-  return (
-    <MAvatar
-      src={user.photoURL}
-      alt={user.displayName}
-      color={user.photoURL ? 'default' : createAvatar(user.displayName).color}
-      {...other}
-    >
-      {createAvatar(user.displayName).name}
-    </MAvatar>
-  );
+  // return (
+  //   <MAvatar
+  //     src={user.photoURL}
+  //     alt={user.displayName}
+  //     color={user.photoURL ? 'default' : createAvatar(user.displayName).color}
+  //     {...other}
+  //   >
+  //     {createAvatar(user.displayName).name}
+  //   </MAvatar>
+  // );
+
+  return <div>avatar</div>;
 }
