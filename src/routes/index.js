@@ -9,6 +9,7 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
 import WalletGuard from '../guards/WalletGuard';
+import WalletSignGuard from '../guards/WalletSignGuard';
 // import RoleBasedGuard from '../guards/RoleBasedGuard';
 // components
 import LoadingScreen from '../components/LoadingScreen';
@@ -150,9 +151,9 @@ export default function Router() {
           path: 'create',
           // element: <AssetCreate />
           element: (
-            <WalletGuard>
+            <WalletSignGuard>
               <AssetCreate />
-            </WalletGuard>
+            </WalletSignGuard>
           )
         },
         {
