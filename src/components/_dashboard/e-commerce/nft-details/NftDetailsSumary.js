@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react';
+import { AiFillEdit } from 'react-icons/ai';
 import { sentenceCase } from 'change-case';
 import { useNavigate } from 'react-router-dom';
 import plusFill from '@iconify/icons-eva/plus-fill';
@@ -113,7 +114,7 @@ const Incrementer = (props) => {
   );
 };
 
-export default function ProductDetailsSumary() {
+export default function NftDetailsSumary() {
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -206,16 +207,8 @@ export default function ProductDetailsSumary() {
           </Typography>
 
           <Typography variant="h5" paragraph>
-            {name}
+            {name}+NFT
           </Typography>
-
-          <Stack spacing={0.5} direction="row" alignItems="center" sx={{ mb: 2 }}>
-            <Rating value={totalRating} precision={0.1} readOnly />
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              ({fShortenNumber(totalReview)}
-              reviews)
-            </Typography>
-          </Stack>
 
           <Typography variant="h4" sx={{ mb: 3 }}>
             <Box component="span" sx={{ color: 'text.disabled', textDecoration: 'line-through' }}>
@@ -226,77 +219,6 @@ export default function ProductDetailsSumary() {
 
           <Divider sx={{ borderStyle: 'dashed' }} />
 
-          <Stack spacing={3} sx={{ my: 3 }}>
-            <Stack direction="row" alignItems="center" justifyContent="space-between">
-              <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
-                Color
-              </Typography>
-              <ColorSinglePicker
-                {...getFieldProps('color')}
-                colors={colors}
-                sx={{
-                  ...(colors.length > 4 && {
-                    maxWidth: 144,
-                    justifyContent: 'flex-end'
-                  })
-                }}
-              />
-            </Stack>
-
-            <Stack direction="row" justifyContent="space-between">
-              <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
-                Size
-              </Typography>
-              <TextField
-                select
-                size="small"
-                {...getFieldProps('size')}
-                SelectProps={{ native: true }}
-                FormHelperTextProps={{
-                  sx: {
-                    textAlign: 'right',
-                    margin: 0,
-                    mt: 1
-                  }
-                }}
-                helperText={
-                  <Link href="#" underline="always" color="text.primary">
-                    Size Chart
-                  </Link>
-                }
-              >
-                {sizes.map((size) => (
-                  <option key={size} value={size}>
-                    {size}
-                  </option>
-                ))}
-              </TextField>
-            </Stack>
-
-            <Stack direction="row" justifyContent="space-between">
-              <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
-                Quantity
-              </Typography>
-              <div>
-                <Incrementer name="quantity" available={available} />
-                <Typography
-                  variant="caption"
-                  sx={{
-                    mt: 1,
-                    display: 'block',
-                    textAlign: 'right',
-                    color: 'text.secondary'
-                  }}
-                >
-                  Available: {available}
-                </Typography>
-
-                <FormHelperText error>{touched.quantity && errors.quantity}</FormHelperText>
-              </div>
-            </Stack>
-          </Stack>
-          <Divider sx={{ borderStyle: 'dashed' }} />
-
           <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }} sx={{ mt: 5 }}>
             <Button
               fullWidth
@@ -305,16 +227,18 @@ export default function ProductDetailsSumary() {
               type="button"
               color="warning"
               variant="contained"
-              startIcon={<Icon icon={roundAddShoppingCart} />}
+              startIcon={<AiFillEdit />}
               onClick={handleAddCart}
               sx={{ whiteSpace: 'nowrap' }}
             >
-              Add to Cart
+              Edit
             </Button>
             <Button fullWidth size="large" type="submit" variant="contained">
-              Buy Now
+              Sell
             </Button>
           </Stack>
+
+          <Divider sx={{ borderStyle: 'dashed' }} />
 
           <Box sx={{ mt: 3, textAlign: 'center' }}>
             {SOCIALS.map((social) => (

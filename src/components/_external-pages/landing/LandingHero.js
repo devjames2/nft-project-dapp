@@ -113,14 +113,14 @@ export default function LandingHero() {
               </Button>
               <Button
                 sx={{ m: 1 }}
-                color="secondary"
+                color="warning"
                 size="large"
                 variant="contained"
                 component={RouterLink}
-                to={PATH_DASHBOARD.assets.productById}
+                to={PATH_DASHBOARD.eCommerce.nftById}
                 startIcon={<Icon icon={flashFill} width={20} height={20} />}
               >
-                Assets
+                NFT Detail
               </Button>
             </motion.div>
           </ContentStyle>

@@ -6,6 +6,7 @@ import mailReducer from './slices/mail';
 import chatReducer from './slices/chat';
 import blogReducer from './slices/blog';
 import userReducer from './slices/user';
+import nftReducer from './slices/nft';
 import productReducer from './slices/product';
 import calendarReducer from './slices/calendar';
 import kanbanReducer from './slices/kanban';
@@ -26,6 +27,13 @@ const productPersistConfig = {
   whitelist: ['sortBy', 'checkout']
 };
 
+const nftPersistConfig = {
+  key: 'nft',
+  storage,
+  keyPrefix: 'redux-',
+  whitelist: ['sortBy', 'checkout']
+};
+
 const rootReducer = combineReducers({
   mail: mailReducer,
   chat: chatReducer,
@@ -33,7 +41,8 @@ const rootReducer = combineReducers({
   user: userReducer,
   calendar: calendarReducer,
   kanban: kanbanReducer,
-  product: persistReducer(productPersistConfig, productReducer)
+  product: persistReducer(productPersistConfig, productReducer),
+  nft: persistReducer(nftPersistConfig, nftReducer)
 });
 
 export { rootPersistConfig, rootReducer };

@@ -21,31 +21,20 @@ import Page from '../../components/Page';
 import Markdown from '../../components/Markdown';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import {
-  ProductDetailsSumary,
-  ProductDetailsReview,
-  ProductDetailsCarousel
-} from '../../components/_dashboard/e-commerce/product-details';
+  NftDetailsAboutCollection,
+  NftDetailsCarousel,
+  NftDetailsDescription,
+  NftDetailsDetails,
+  NftDetailsItemActivity,
+  NftDetailsListings,
+  NftDetailsMoreCollection,
+  NftDetailsOffers,
+  NftDetailsPriceHistory,
+  NftDetailsSumary
+} from '../../components/_dashboard/e-commerce/nft-details';
 import CartWidget from '../../components/_dashboard/e-commerce/CartWidget';
 
 // ----------------------------------------------------------------------
-
-const PRODUCT_DESCRIPTION = [
-  {
-    title: '100% Original',
-    description: 'Chocolate bar candy canes ice cream toffee cookie halvah.',
-    icon: roundVerified
-  },
-  {
-    title: '10 Day Replacement',
-    description: 'Marshmallow biscuit donut dragée fruitcake wafer.',
-    icon: clockFill
-  },
-  {
-    title: 'Year Warranty',
-    description: 'Cotton candy gingerbread cake I love sugar sweet.',
-    icon: roundVerifiedUser
-  }
-];
 
 const IconWrapperStyle = styled('div')(({ theme }) => ({
   margin: 'auto',
@@ -77,7 +66,7 @@ const SkeletonLoad = (
   </Grid>
 );
 
-export default function AssetsProductDetails() {
+export default function EcommerceNftDetails() {
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
   const { name } = useParams();
@@ -93,10 +82,10 @@ export default function AssetsProductDetails() {
   };
 
   return (
-    <Page title="Ecommerce: Product Details | Minimal-UI">
+    <Page title="Ecommerce: Nft Details | Minimal-UI">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Product Details"
+          heading="Nft Details"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             {
@@ -112,57 +101,38 @@ export default function AssetsProductDetails() {
         {product && (
           <>
             <Card>
-              <Grid container>
-                <Grid item xs={12} md={6} lg={7}>
-                  <ProductDetailsCarousel />
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6} lg={5.7}>
+                  <NftDetailsCarousel />
                 </Grid>
-                <Grid item xs={12} md={6} lg={5}>
-                  <ProductDetailsSumary />
+                <Grid item xs={12} md={6} lg={5.7}>
+                  <NftDetailsSumary />
+                </Grid>
+                <Grid item xs={12} md={6} lg={5.7}>
+                  <NftDetailsPriceHistory />
+                </Grid>
+                <Grid item xs={12} md={6} lg={5.7}>
+                  <NftDetailsListings />
+                </Grid>
+                <Grid item xs={12} md={6} lg={5.7}>
+                  <NftDetailsOffers />
+                </Grid>
+                <Grid item xs={12} md={6} lg={5.7}>
+                  <NftDetailsDescription />
+                </Grid>
+                <Grid item xs={12} md={6} lg={5.7}>
+                  <NftDetailsAboutCollection />
+                </Grid>
+                <Grid item xs={12} md={6} lg={5.7}>
+                  <NftDetailsDetails />
+                </Grid>
+                <Grid item xs={12} md={6} lg={5.7}>
+                  <NftDetailsItemActivity />
+                </Grid>
+                <Grid item xs={12} md={6} lg={5.7}>
+                  <NftDetailsMoreCollection />
                 </Grid>
               </Grid>
-            </Card>
-
-            <Grid container sx={{ my: 8 }}>
-              {PRODUCT_DESCRIPTION.map((item) => (
-                <Grid item xs={12} md={4} key={item.title}>
-                  <Box sx={{ my: 2, mx: 'auto', maxWidth: 280, textAlign: 'center' }}>
-                    <IconWrapperStyle>
-                      <Icon icon={item.icon} width={36} height={36} />
-                    </IconWrapperStyle>
-                    <Typography variant="subtitle1" gutterBottom>
-                      {item.title}
-                    </Typography>
-                    <Typography sx={{ color: 'text.secondary' }}>{item.description}</Typography>
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
-
-            <Card>
-              <TabContext value={value}>
-                <Box sx={{ px: 3, bgcolor: 'background.neutral' }}>
-                  <TabList onChange={handleChangeTab}>
-                    <Tab disableRipple value="1" label="Description" />
-                    <Tab
-                      disableRipple
-                      value="2"
-                      label={`Review (${product.reviews.length})`}
-                      sx={{ '& .MuiTab-wrapper': { whiteSpace: 'nowrap' } }}
-                    />
-                  </TabList>
-                </Box>
-
-                <Divider />
-
-                <TabPanel value="1">
-                  <Box sx={{ p: 3 }}>
-                    <Markdown children={product.description} />
-                  </Box>
-                </TabPanel>
-                <TabPanel value="2">
-                  <ProductDetailsReview product={product} />
-                </TabPanel>
-              </TabContext>
             </Card>
           </>
         )}

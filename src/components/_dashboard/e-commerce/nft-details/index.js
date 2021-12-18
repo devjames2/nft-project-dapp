@@ -1,0 +1,10 @@
+export { default as NftDetailsAboutCollection } from './NftDetailsAboutCollection';
+export { default as NftDetailsCarousel } from './NftDetailsCarousel';
+export { default as NftDetailsDescription } from './NftDetailsDescription';
+export { default as NftDetailsDetails } from './NftDetailsDetails';
+export { default as NftDetailsItemActivity } from './NftDetailsItemActivity';
+export { default as NftDetailsListings } from './NftDetailsListings';
+export { default as NftDetailsMoreCollection } from './NftDetailsMoreCollection';
+export { default as NftDetailsOffers } from './NftDetailsOffers';
+export { default as NftDetailsPriceHistory } from './NftDetailsPriceHistory';
+export { default as NftDetailsSumary } from './NftDetailsSumary';

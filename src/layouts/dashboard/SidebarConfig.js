@@ -70,6 +70,7 @@ const sidebarConfig = [
         icon: ICONS.cart,
         children: [
           { title: 'shop', path: PATH_DASHBOARD.eCommerce.shop },
+          { title: 'nft', path: PATH_DASHBOARD.eCommerce.nftById },
           { title: 'product', path: PATH_DASHBOARD.eCommerce.productById },
           { title: 'list', path: PATH_DASHBOARD.eCommerce.list },
           { title: 'create', path: PATH_DASHBOARD.eCommerce.newProduct },

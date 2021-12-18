@@ -89,7 +89,7 @@ function ThumbnailItem({ item }) {
   );
 }
 
-export default function ProductDetailsCarousel() {
+export default function NftDetailsCarousel() {
   const [openLightbox, setOpenLightbox] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);

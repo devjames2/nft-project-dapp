@@ -309,7 +309,7 @@ export default function ProductDetailsSumary() {
               onClick={handleAddCart}
               sx={{ whiteSpace: 'nowrap' }}
             >
-              Add Product 쪽 to Cart
+              Add to Cart
             </Button>
             <Button fullWidth size="large" type="submit" variant="contained">
               Buy Now
