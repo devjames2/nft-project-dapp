@@ -13,7 +13,7 @@ import { Box, Tab, Card, Grid, Divider, Skeleton, Container, Typography, Stack }
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 // redux
 import { useDispatch, useSelector } from '../../../../redux/store';
-import { getProduct } from '../../../../redux/slices/product';
+import { getNft } from '../../../../redux/slices/nft';
 // utils
 import { fNumber, fPercent } from '../../../../utils/formatNumber';
 
@@ -39,7 +39,7 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 const PERCENT = 2.6;
 const TOTAL_USER = 18765;
 const CHART_DATA = [{ data: [20, 41, 63, 33, 28, 35, 50, 46, 11, 26] }];
-const PRODUCT_DESCRIPTION = [
+const NFT_DESCRIPTION = [
   {
     title: 'Contract Address',
     description: '0x2953399124f0cbb46d2cbacd8a89cf0599974963'
@@ -68,10 +68,10 @@ export default function NftDetailsDetails() {
   const dispatch = useDispatch();
   const { name } = useParams();
   const [value, setValue] = useState('1');
-  const { product, error } = useSelector((state) => state.product);
+  const { nft, error } = useSelector((state) => state.nft);
 
   useEffect(() => {
-    dispatch(getProduct(name));
+    dispatch(getNft(name));
   }, [dispatch, name]);
 
   const handleChangeTab = (event, newValue) => {
@@ -90,7 +90,7 @@ export default function NftDetailsDetails() {
 
           <TabPanel value="1">
             <Box sx={{ p: 3 }}>
-              <Markdown children={product.description} />
+              <Markdown children={nft.description} />
             </Box>
           </TabPanel>
         </TabContext>

@@ -26,7 +26,7 @@ import {
 } from '@mui/material';
 // redux
 import { useDispatch, useSelector } from '../../../../redux/store';
-import { addCart, onGotoStep } from '../../../../redux/slices/product';
+import { addCart, onGotoStep } from '../../../../redux/slices/nft';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // utils
@@ -118,7 +118,7 @@ export default function NftDetailsSumary() {
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { product, checkout } = useSelector((state) => state.product);
+  const { nft, checkout } = useSelector((state) => state.nft);
   const {
     id,
     name,
@@ -132,13 +132,13 @@ export default function NftDetailsSumary() {
     totalRating,
     totalReview,
     inventoryType
-  } = product;
+  } = nft;
 
-  const alreadyProduct = checkout.cart.map((item) => item.id).includes(id);
+  const alreadyNft = checkout.cart.map((item) => item.id).includes(id);
   const isMaxQuantity = checkout.cart.filter((item) => item.id === id).map((item) => item.quantity)[0] >= available;
 
-  const onAddCart = (product) => {
-    dispatch(addCart(product));
+  const onAddCart = (nft) => {
+    dispatch(addCart(nft));
   };
 
   const handleBuyNow = () => {
@@ -159,7 +159,7 @@ export default function NftDetailsSumary() {
     },
     onSubmit: async (values, { setSubmitting }) => {
       try {
-        if (!alreadyProduct) {
+        if (!alreadyNft) {
           onAddCart({
             ...values,
             subtotal: values.price * values.quantity

@@ -27,13 +27,6 @@ const productPersistConfig = {
   whitelist: ['sortBy', 'checkout']
 };
 
-const nftPersistConfig = {
-  key: 'nft',
-  storage,
-  keyPrefix: 'redux-',
-  whitelist: ['sortBy', 'checkout']
-};
-
 const rootReducer = combineReducers({
   mail: mailReducer,
   chat: chatReducer,
@@ -42,7 +35,7 @@ const rootReducer = combineReducers({
   calendar: calendarReducer,
   kanban: kanbanReducer,
   product: persistReducer(productPersistConfig, productReducer),
-  nft: persistReducer(nftPersistConfig, nftReducer)
+  nft: nftReducer
 });
 
 export { rootPersistConfig, rootReducer };
