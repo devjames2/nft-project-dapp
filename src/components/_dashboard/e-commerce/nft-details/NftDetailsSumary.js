@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { AiFillEdit } from 'react-icons/ai';
+// import { AiFillEdit } from 'react-icons/ai';
 import { sentenceCase } from 'change-case';
 import { useNavigate } from 'react-router-dom';
 import plusFill from '@iconify/icons-eva/plus-fill';
@@ -135,7 +135,7 @@ export default function NftDetailsSumary() {
   } = nft;
 
   const alreadyNft = checkout.cart.map((item) => item.id).includes(id);
-  const isMaxQuantity = checkout.cart.filter((item) => item.id === id).map((item) => item.quantity)[0] >= available;
+  // const isMaxQuantity = checkout.cart.filter((item) => item.id === id).map((item) => item.quantity)[0] >= available;
 
   const onAddCart = (nft) => {
     dispatch(addCart(nft));
@@ -149,13 +149,13 @@ export default function NftDetailsSumary() {
     enableReinitialize: true,
     initialValues: {
       id,
-      name,
-      cover,
-      available,
-      price,
-      color: colors[0],
-      size: sizes[4],
-      quantity: available < 1 ? 0 : 1
+      name
+      // cover,
+      // available,
+      // price,
+      // color: colors[0],
+      // size: sizes[4],
+      // quantity: available < 1 ? 0 : 1
     },
     onSubmit: async (values, { setSubmitting }) => {
       try {
@@ -185,7 +185,7 @@ export default function NftDetailsSumary() {
 
   return (
     <RootStyle>
-      <FormikProvider value={formik}>
+      {/* <FormikProvider value={formik}>
         <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
           <Label
             variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
@@ -227,7 +227,7 @@ export default function NftDetailsSumary() {
               type="button"
               color="warning"
               variant="contained"
-              startIcon={<AiFillEdit />}
+              // startIcon={<AiFillEdit />}
               onClick={handleAddCart}
               sx={{ whiteSpace: 'nowrap' }}
             >
@@ -248,7 +248,8 @@ export default function NftDetailsSumary() {
             ))}
           </Box>
         </Form>
-      </FormikProvider>
+      </FormikProvider> */}
+      <div>{name}</div>
     </RootStyle>
   );
 }

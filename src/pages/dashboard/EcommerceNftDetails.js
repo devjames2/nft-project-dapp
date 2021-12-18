@@ -33,6 +33,7 @@ import {
   NftDetailsSumary
 } from '../../components/_dashboard/e-commerce/nft-details';
 import CartWidget from '../../components/_dashboard/e-commerce/CartWidget';
+import { getNft } from '../../redux/slices/nft';
 
 // ----------------------------------------------------------------------
 
@@ -71,10 +72,10 @@ export default function EcommerceNftDetails() {
   const dispatch = useDispatch();
   const { name } = useParams();
   const [value, setValue] = useState('1');
-  const { product, error } = useSelector((state) => state.product);
+  const { nft, error } = useSelector((state) => state.nft);
 
   useEffect(() => {
-    dispatch(getProduct(name));
+    dispatch(getNft(name));
   }, [dispatch, name]);
 
   const handleChangeTab = (event, newValue) => {
@@ -98,7 +99,7 @@ export default function EcommerceNftDetails() {
 
         <CartWidget />
 
-        {product && (
+        {nft && (
           <>
             <Card>
               <Grid container spacing={3}>
@@ -108,7 +109,7 @@ export default function EcommerceNftDetails() {
                 <Grid item xs={12} md={6} lg={5.7}>
                   <NftDetailsSumary />
                 </Grid>
-                <Grid item xs={12} md={6} lg={5.7}>
+                {/* <Grid item xs={12} md={6} lg={5.7}>
                   <NftDetailsPriceHistory />
                 </Grid>
                 <Grid item xs={12} md={6} lg={5.7}>
@@ -131,13 +132,13 @@ export default function EcommerceNftDetails() {
                 </Grid>
                 <Grid item xs={12} md={6} lg={5.7}>
                   <NftDetailsMoreCollection />
-                </Grid>
+                </Grid> */}
               </Grid>
             </Card>
           </>
         )}
 
-        {!product && SkeletonLoad}
+        {!nft && SkeletonLoad}
 
         {error && <Typography variant="h6">404 Product not found</Typography>}
       </Container>
