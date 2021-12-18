@@ -11,7 +11,7 @@ import { Box, Tab, Card, Grid, Divider, Skeleton, Container, Typography } from '
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
-import { getProduct } from '../../redux/slices/product';
+import { getNft } from '../../redux/slices/nft';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
@@ -71,10 +71,10 @@ export default function EcommerceNftDetails() {
   const dispatch = useDispatch();
   const { name } = useParams();
   const [value, setValue] = useState('1');
-  const { product, error } = useSelector((state) => state.product);
+  const { nft, error } = useSelector((state) => state.nft);
 
   useEffect(() => {
-    dispatch(getProduct(name));
+    dispatch(getNft(name));
   }, [dispatch, name]);
 
   const handleChangeTab = (event, newValue) => {
@@ -137,9 +137,9 @@ export default function EcommerceNftDetails() {
           </>
         )}
 
-        {!product && SkeletonLoad}
+        {!NftDetailsAboutCollection && SkeletonLoad}
 
-        {error && <Typography variant="h6">404 Product not found</Typography>}
+        {error && <Typography variant="h6">404 Nft not found</Typography>}
       </Container>
     </Page>
   );
