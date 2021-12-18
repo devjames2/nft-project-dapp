@@ -79,22 +79,23 @@ export default function NftDetailsDetails() {
   };
 
   return (
-    <Container maxWidth={themeStretch ? false : 'lg'}>
-      <Card>
-        <TabContext value={value}>
-          <Box sx={{ px: 3, bgcolor: 'background.neutral' }}>
-            <Tab onChange={handleChangeTab} disableRipple value="1" label="Details" />
-          </Box>
+    <div>sample</div>
+    // <Container maxWidth={themeStretch ? false : 'lg'}>
+    //   <Card>
+    //     <TabContext value={value}>
+    //       <Box sx={{ px: 3, bgcolor: 'background.neutral' }}>
+    //         <Tab onChange={handleChangeTab} disableRipple value="1" label="Details" />
+    //       </Box>
 
-          <Divider />
+    //       <Divider />
 
-          <TabPanel value="1">
-            <Box sx={{ p: 3 }}>
-              <Markdown children={nft.description} />
-            </Box>
-          </TabPanel>
-        </TabContext>
-      </Card>
-    </Container>
+    //       <TabPanel value="1">
+    //         <Box sx={{ p: 3 }}>
+    //           <Markdown children={nft.description} />
+    //         </Box>
+    //       </TabPanel>
+    //     </TabContext>
+    //   </Card>
+    // </Container>
   );
 }

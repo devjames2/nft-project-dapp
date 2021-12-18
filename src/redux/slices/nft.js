@@ -234,6 +234,7 @@ export function getNft(name) {
       const response = await axios.get('/api/nfts/nft', {
         params: { name }
       });
+      console.log(response);
       dispatch(slice.actions.getNftSuccess(response.data.nft));
     } catch (error) {
       console.error(error);

@@ -99,7 +99,7 @@ export default function NftDetailsCarousel() {
   const slider2 = useRef(null);
 
   const { nft } = useSelector((state) => state.nft);
-  const imagesLightbox = product.images.map((_image) => _image);
+  const imagesLightbox = nft.images.map((_image) => _image);
 
   const handleOpenLightbox = (url) => {
     const selectedImage = findIndex(imagesLightbox, (index) => index === url);
@@ -125,7 +125,7 @@ export default function NftDetailsCarousel() {
     focusOnSelect: true,
     variableWidth: true,
     centerPadding: '0px',
-    slidesToShow: product.images.length > 3 ? 3 : product.images.length
+    slidesToShow: nft.images.length > 3 ? 3 : nft.images.length
   };
 
   useEffect(() => {
