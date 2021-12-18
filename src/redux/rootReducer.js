@@ -7,6 +7,7 @@ import chatReducer from './slices/chat';
 import blogReducer from './slices/blog';
 import userReducer from './slices/user';
 import nftReducer from './slices/nft';
+import itemReducer from './slices/item';
 import productReducer from './slices/product';
 import calendarReducer from './slices/calendar';
 import kanbanReducer from './slices/kanban';
@@ -35,7 +36,8 @@ const rootReducer = combineReducers({
   calendar: calendarReducer,
   kanban: kanbanReducer,
   product: persistReducer(productPersistConfig, productReducer),
-  nft: nftReducer
+  nft: nftReducer,
+  item: itemReducer
 });
 
 export { rootPersistConfig, rootReducer };

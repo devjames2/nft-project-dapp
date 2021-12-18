@@ -14,6 +14,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 // redux
 import { useDispatch, useSelector } from '../../../../redux/store';
 import { getNft } from '../../../../redux/slices/nft';
+import { getItem, getItems } from '../../../../redux/slices/item';
 // utils
 import { fNumber, fPercent } from '../../../../utils/formatNumber';
 
@@ -36,32 +37,6 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const PERCENT = 2.6;
-const TOTAL_USER = 18765;
-const CHART_DATA = [{ data: [20, 41, 63, 33, 28, 35, 50, 46, 11, 26] }];
-const NFT_DESCRIPTION = [
-  {
-    title: 'Contract Address',
-    description: '0x2953399124f0cbb46d2cbacd8a89cf0599974963'
-  },
-  {
-    title: 'Token ID',
-    description: '89588803813285719784009642283373842536903659365150438920143814564534175137797'
-  },
-  {
-    title: 'Token Standard',
-    description: 'ERC-1155'
-  },
-  {
-    title: 'Blockchain',
-    description: 'Mumbai'
-  },
-  {
-    title: 'Metadata',
-    description: 'Editable'
-  }
-];
-
 export default function NftDetailsDetails() {
   const theme = useTheme();
   const { themeStretch } = useSettings();
@@ -70,32 +45,23 @@ export default function NftDetailsDetails() {
   const [value, setValue] = useState('1');
   const { nft, error } = useSelector((state) => state.nft);
 
-  useEffect(() => {
-    dispatch(getNft(name));
-  }, [dispatch, name]);
-
-  const handleChangeTab = (event, newValue) => {
-    setValue(newValue);
-  };
-
   return (
-    <div>sample</div>
-    // <Container maxWidth={themeStretch ? false : 'lg'}>
-    //   <Card>
-    //     <TabContext value={value}>
-    //       <Box sx={{ px: 3, bgcolor: 'background.neutral' }}>
-    //         <Tab onChange={handleChangeTab} disableRipple value="1" label="Details" />
-    //       </Box>
+    <Container maxWidth={themeStretch ? false : 'lg'}>
+      <Card>
+        <TabContext value={value}>
+          <Box sx={{ px: 3, bgcolor: 'background.neutral' }}>
+            <Tab disableRipple value="1" label="Details" />
+          </Box>
 
-    //       <Divider />
+          <Divider />
 
-    //       <TabPanel value="1">
-    //         <Box sx={{ p: 3 }}>
-    //           <Markdown children={nft.description} />
-    //         </Box>
-    //       </TabPanel>
-    //     </TabContext>
-    //   </Card>
-    // </Container>
+          <TabPanel value="1">
+            <Box sx={{ p: 3 }}>
+              <Markdown children={nft.description} />
+            </Box>
+          </TabPanel>
+        </TabContext>
+      </Card>
+    </Container>
   );
 }

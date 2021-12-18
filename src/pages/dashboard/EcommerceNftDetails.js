@@ -1,17 +1,13 @@
-import { Icon } from '@iconify/react';
 import { sentenceCase } from 'change-case';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import clockFill from '@iconify/icons-eva/clock-fill';
-import roundVerified from '@iconify/icons-ic/round-verified';
-import roundVerifiedUser from '@iconify/icons-ic/round-verified-user';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Tab, Card, Grid, Divider, Skeleton, Container, Typography } from '@mui/material';
-import { TabContext, TabList, TabPanel } from '@mui/lab';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
 import { getNft } from '../../redux/slices/nft';
+import { getItem, getItems } from '../../redux/slices/item';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
@@ -21,34 +17,11 @@ import Page from '../../components/Page';
 import Markdown from '../../components/Markdown';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import {
-  NftDetailsAboutCollection,
   NftDetailsCarousel,
-  NftDetailsDescription,
   NftDetailsDetails,
-  NftDetailsItemActivity,
-  NftDetailsListings,
-  NftDetailsMoreCollection,
-  NftDetailsOffers,
-  NftDetailsPriceHistory,
   NftDetailsSumary
 } from '../../components/_dashboard/e-commerce/nft-details';
 import CartWidget from '../../components/_dashboard/e-commerce/CartWidget';
-import { getNft } from '../../redux/slices/nft';
-
-// ----------------------------------------------------------------------
-
-const IconWrapperStyle = styled('div')(({ theme }) => ({
-  margin: 'auto',
-  display: 'flex',
-  borderRadius: '50%',
-  alignItems: 'center',
-  width: theme.spacing(8),
-  justifyContent: 'center',
-  height: theme.spacing(8),
-  marginBottom: theme.spacing(3),
-  color: theme.palette.primary.main,
-  backgroundColor: `${alpha(theme.palette.primary.main, 0.08)}`
-}));
 
 // ----------------------------------------------------------------------
 
@@ -78,10 +51,6 @@ export default function EcommerceNftDetails() {
     dispatch(getNft(name));
   }, [dispatch, name]);
 
-  const handleChangeTab = (event, newValue) => {
-    setValue(newValue);
-  };
-
   return (
     <Page title="Ecommerce: Nft Details | Minimal-UI">
       <Container maxWidth={themeStretch ? false : 'lg'}>
@@ -103,11 +72,14 @@ export default function EcommerceNftDetails() {
           <>
             <Card>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={6} lg={5.7}>
+                <Grid item xs={12} md={6} lg={5}>
                   <NftDetailsCarousel />
                 </Grid>
-                <Grid item xs={12} md={6} lg={5.7}>
+                <Grid item xs={12} md={6} lg={5}>
                   <NftDetailsSumary />
+                </Grid>
+                <Grid item xs={12} md={6} lg={5}>
+                  <NftDetailsDetails />
                 </Grid>
                 {/* <Grid item xs={12} md={6} lg={5.7}>
                   <NftDetailsPriceHistory />
@@ -123,9 +95,6 @@ export default function EcommerceNftDetails() {
                 </Grid>
                 <Grid item xs={12} md={6} lg={5.7}>
                   <NftDetailsAboutCollection />
-                </Grid>
-                <Grid item xs={12} md={6} lg={5.7}>
-                  <NftDetailsDetails />
                 </Grid>
                 <Grid item xs={12} md={6} lg={5.7}>
                   <NftDetailsItemActivity />

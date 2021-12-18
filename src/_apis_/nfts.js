@@ -37,11 +37,20 @@ const NFT_COLOR = ['#00AB55', '#000000', '#FFFFFF', '#FFC0CB', '#FF4842', '#1890
 const NFT_TAGS = ['Dangal', 'The Sting', '2001: A Space Odyssey', "Singin' in the Rain"];
 
 const NFT_DESCRIPTION = `
-<p><strong><small> This is NFT's Page</small></strong></p>
-<p>Leather panels. Laces. Rounded toe. Rubber sole.
+<p> title: 'Contract Address', </p>
+<p> description: '0x2953399124f0cbb46d2cbacd8a89cf0599974963' </p>
 <br /><br />
-<p><strong><small> MATERIAL AND WASHING INSTRUCTIONS</small></strong></p>
-<p>Shoeupper: 54% bovine leather,46% polyurethane. Lining: 65% polyester,35% cotton. Insole: 100% polyurethane. Sole: 100% thermoplastic. Fixing sole: 100% glued.</p>
+<p> title: 'Token ID', </p>
+<p> description: '89588803813285719784009642283373842536903659365150438920143814564534175137797' </p>
+<br /><br />
+<p> title: 'Token Standard', </p>
+<p> description: 'ERC-1155' </p>
+<br /><br />
+<p> title: 'Blockchain', </p>
+<p> description: 'Mumbai' </p>
+<br /><br />
+<p> title: 'Metadata', </p>
+<p> description: 'Editable' </p>
 `;
 const NFT_SIZE = ['6', '7', '8', '8.5', '9', '9.5', '10', '10.5', '11', '11.5', '12', '13'];
 
