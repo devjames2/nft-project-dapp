@@ -9,7 +9,8 @@ const initialState = {
   isLoading: false,
   error: false,
   items: [],
-  item: null
+  item: [1, 2, 3],
+  tokenId: '1'
 };
 
 const slice = createSlice({
@@ -45,8 +46,7 @@ const slice = createSlice({
 export default slice.reducer;
 
 // Actions
-export const { deleteNft } = slice.actions;
-// ----------------------------------------------------------------------
+// export const { deleteNft } = slice.actions;
 
 export function getItems() {
   return async (dispatch) => {
@@ -54,7 +54,7 @@ export function getItems() {
     try {
       const response = await axios.get('http://52.231.48.130:8080/items/vouchers/');
       dispatch(slice.actions.getItemsSuccess(response.data.items));
-      console.log(response.data.items);
+      console.log(response);
     } catch (error) {
       console.log(error);
       dispatch(slice.actions.hasError(error));
@@ -62,14 +62,12 @@ export function getItems() {
   };
 }
 
-// ----------------------------------------------------------------------
-
-export function getItem(name) {
+export function getItem(tokenId) {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const response = await axios.get('http://52.231.48.130:8080/items/vouchers/', {
-        params: { name }
+        params: { tokenId }
       });
       console.log(response);
       dispatch(slice.actions.getItemSuccess(response.data.item));

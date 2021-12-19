@@ -67,84 +67,12 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const Incrementer = (props) => {
-  const [field, , helpers] = useField(props);
-  // eslint-disable-next-line react/prop-types
-  const { available } = props;
-  const { value } = field;
-  const { setValue } = helpers;
-
-  const incrementQuantity = () => {
-    setValue(value + 1);
-  };
-  const decrementQuantity = () => {
-    setValue(value - 1);
-  };
-
-  return (
-    <Box
-      sx={{
-        py: 0.5,
-        px: 0.75,
-        border: 1,
-        lineHeight: 0,
-        borderRadius: 1,
-        display: 'flex',
-        alignItems: 'center',
-        borderColor: 'grey.50032'
-      }}
-    >
-      <MIconButton size="small" color="inherit" disabled={value <= 1} onClick={decrementQuantity}>
-        <Icon icon={minusFill} width={16} height={16} />
-      </MIconButton>
-      <Typography
-        variant="body2"
-        component="span"
-        sx={{
-          width: 40,
-          textAlign: 'center',
-          display: 'inline-block'
-        }}
-      >
-        {value}
-      </Typography>
-      <MIconButton size="small" color="inherit" disabled={value >= available} onClick={incrementQuantity}>
-        <Icon icon={plusFill} width={16} height={16} />
-      </MIconButton>
-    </Box>
-  );
-};
-
 export default function NftDetailsSumary() {
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { nft, checkout } = useSelector((state) => state.nft);
-  const {
-    id,
-    name,
-    sizes,
-    price,
-    cover,
-    status,
-    colors,
-    available,
-    priceSale,
-    totalRating,
-    totalReview,
-    inventoryType
-  } = nft;
-
-  const alreadyNft = checkout.cart.map((item) => item.id).includes(id);
-  const isMaxQuantity = checkout.cart.filter((item) => item.id === id).map((item) => item.quantity)[0] >= available;
-
-  const onAddCart = (nft) => {
-    dispatch(addCart(nft));
-  };
-
-  const handleBuyNow = () => {
-    dispatch(onGotoStep(0));
-  };
+  const { id, name, sizes, price, cover, status, colors, available, priceSale, inventoryType } = nft;
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -157,32 +85,10 @@ export default function NftDetailsSumary() {
       color: colors[0],
       size: sizes[4],
       quantity: available < 1 ? 0 : 1
-    },
-    onSubmit: async (values, { setSubmitting }) => {
-      try {
-        if (!alreadyNft) {
-          onAddCart({
-            ...values,
-            subtotal: values.price * values.quantity
-          });
-        }
-        setSubmitting(false);
-        handleBuyNow();
-        navigate(PATH_DASHBOARD.eCommerce.checkout);
-      } catch (error) {
-        setSubmitting(false);
-      }
     }
   });
 
   const { values, touched, errors, getFieldProps, handleSubmit } = formik;
-
-  const handleAddCart = () => {
-    onAddCart({
-      ...values,
-      subtotal: values.price * values.quantity
-    });
-  };
 
   return (
     <RootStyle>
@@ -235,13 +141,11 @@ export default function NftDetailsSumary() {
           <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }} sx={{ mt: 5 }}>
             <Button
               fullWidth
-              disabled={isMaxQuantity}
               size="large"
               type="button"
               color="warning"
               variant="contained"
               startIcon={<AiFillEdit />}
-              onClick={handleAddCart}
               sx={{ whiteSpace: 'nowrap' }}
             >
               Edit

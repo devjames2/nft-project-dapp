@@ -44,7 +44,6 @@ export default function EcommerceNftDetails() {
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
   const { name } = useParams();
-  const [value, setValue] = useState('1');
   const { nft, error } = useSelector((state) => state.nft);
 
   useEffect(() => {
