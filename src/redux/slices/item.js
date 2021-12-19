@@ -9,7 +9,7 @@ const initialState = {
   isLoading: false,
   error: false,
   items: [],
-  item: [1, 2, 3],
+  item: {},
   tokenId: '1'
 };
 
@@ -63,12 +63,11 @@ export function getItems() {
 }
 
 export function getItem(tokenId) {
+  console.log('tokenId URL 가나?');
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get('http://52.231.48.130:8080/items/vouchers/', {
-        params: { tokenId }
-      });
+      const response = await axios.get('http://52.231.48.130:8080/items/vouchers/1');
       console.log(response);
       dispatch(slice.actions.getItemSuccess(response.data.item));
     } catch (error) {
