@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import flashFill from '@iconify/icons-eva/flash-fill';
-import { AiFillEdit } from 'react-icons/ai';
+// import { AiFillEdit } from 'react-icons/ai';
 import { sentenceCase } from 'change-case';
 import { useNavigate } from 'react-router-dom';
 import plusFill from '@iconify/icons-eva/plus-fill';
@@ -145,7 +145,7 @@ export default function NftDetailsSumary() {
               type="button"
               color="warning"
               variant="contained"
-              startIcon={<AiFillEdit />}
+              // startIcon={<AiFillEdit />}
               sx={{ whiteSpace: 'nowrap' }}
             >
               Edit

@@ -22,14 +22,15 @@ export default function NftDetailsDetails() {
   const { name } = useParams();
   const dispatch = useDispatch();
   const { nft } = useSelector((state) => state.nft);
-  const { item, tokenId } = useSelector((state) => state.item);
+  const { item } = useSelector((state) => state.item);
 
-  console.log('item : ', item);
-  console.log('tokenId : ', tokenId);
+  const tokenId = 1;
 
   useEffect(() => {
     dispatch(getItem(tokenId));
-  }, [dispatch, tokenId]);
+  }, [dispatch]);
+
+  console.log(item);
 
   return (
     <Container maxWidth={themeStretch ? false : 'lg'}>
@@ -43,7 +44,11 @@ export default function NftDetailsDetails() {
 
           <TabPanel value="1">
             <Box sx={{ p: 3 }}>
-              <Markdown children={nft.description} />
+              Token ID : {item.token_address}
+              Item Name : {item.name}
+              Owner : {item.owner_of}
+              Contract Type : {item.contract_type}
+              Token URI : {item.token_uri}
             </Box>
           </TabPanel>
         </TabContext>
