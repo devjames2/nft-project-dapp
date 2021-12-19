@@ -1,7 +1,7 @@
 import { sum, map, filter, uniqBy, reject } from 'lodash';
 import { createSlice } from '@reduxjs/toolkit';
 // utils
-import axios from '../../utils/axios';
+import axios from '../../utils/axios_real';
 
 // ----------------------------------------------------------------------
 
@@ -9,7 +9,7 @@ const initialState = {
   isLoading: false,
   error: false,
   items: [],
-  item: [1, 2, 3],
+  item: {},
   tokenId: '1'
 };
 
@@ -66,11 +66,9 @@ export function getItem(tokenId) {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get('http://52.231.48.130:8080/items/vouchers/', {
-        params: { tokenId }
-      });
+      const response = await axios.get(`http://52.231.48.130:8080/items/vouchers/${tokenId}`);
       console.log(response);
-      dispatch(slice.actions.getItemSuccess(response.data.item));
+      dispatch(slice.actions.getItemSuccess(response.data));
     } catch (error) {
       console.error(error);
       dispatch(slice.actions.hasError(error));
