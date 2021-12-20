@@ -6,7 +6,18 @@ import { useNavigate } from 'react-router-dom';
 import { Form, FormikProvider, useFormik } from 'formik';
 // material
 import { LoadingButton } from '@mui/lab';
-import { Box, Card, Grid, Stack, Switch, TextField, Typography, FormHelperText, FormControlLabel } from '@mui/material';
+import {
+  Box,
+  Card,
+  Grid,
+  Stack,
+  Switch,
+  TextField,
+  Typography,
+  FormHelperText,
+  FormControlLabel,
+  TextareaAutosize
+} from '@mui/material';
 // utils
 import { fData } from '../../../utils/formatNumber';
 import fakeRequest from '../../../utils/fakeRequest';
@@ -93,7 +104,7 @@ export default function AssetNewForm({ isEdit, currentUser }) {
     <FormikProvider value={formik}>
       <Form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={12}>
             <Card sx={{ py: 10, px: 3 }}>
               {isEdit && (
                 <Label
@@ -132,7 +143,7 @@ export default function AssetNewForm({ isEdit, currentUser }) {
                 </FormHelperText>
               </Box>
 
-              {isEdit && (
+              {/* {isEdit && (
                 <FormControlLabel
                   labelPlacement="start"
                   control={
@@ -169,58 +180,83 @@ export default function AssetNewForm({ isEdit, currentUser }) {
                   </>
                 }
                 sx={{ mx: 0, width: 1, justifyContent: 'space-between' }}
-              />
+              /> */}
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} md={12}>
             <Card sx={{ p: 3 }}>
               <Stack spacing={3}>
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
-                  <TextField
-                    fullWidth
-                    label="Full Name"
-                    {...getFieldProps('name')}
-                    error={Boolean(touched.name && errors.name)}
-                    helperText={touched.name && errors.name}
-                  />
-                  <TextField
-                    fullWidth
-                    label="Email Address"
-                    {...getFieldProps('email')}
-                    error={Boolean(touched.email && errors.email)}
-                    helperText={touched.email && errors.email}
-                  />
-                </Stack>
+                <TextField
+                  fullWidth
+                  label="Name"
+                  required
+                  {...getFieldProps('name')}
+                  error={Boolean(touched.name && errors.name)}
+                  helperText={touched.name && errors.name}
+                />
+                <TextField
+                  fullWidth
+                  label="External link"
+                  {...getFieldProps('email')}
+                  error={Boolean(touched.email && errors.email)}
+                  helperText={touched.email && errors.email}
+                />
 
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
-                  <TextField
-                    fullWidth
-                    label="Phone Number"
-                    {...getFieldProps('phoneNumber')}
-                    error={Boolean(touched.phoneNumber && errors.phoneNumber)}
-                    helperText={touched.phoneNumber && errors.phoneNumber}
-                  />
-                  <TextField
-                    select
-                    fullWidth
-                    label="Country"
-                    placeholder="Country"
-                    {...getFieldProps('country')}
-                    SelectProps={{ native: true }}
-                    error={Boolean(touched.country && errors.country)}
-                    helperText={touched.country && errors.country}
-                  >
-                    <option value="" />
-                    {countries.map((option) => (
-                      <option key={option.code} value={option.label}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </TextField>
-                </Stack>
+                <TextField
+                  fullWidth
+                  rows={10}
+                  multiline
+                  label="Description"
+                  {...getFieldProps('phoneNumber')}
+                  error={Boolean(touched.phoneNumber && errors.phoneNumber)}
+                  helperText={touched.phoneNumber && errors.phoneNumber}
+                />
+                <TextField
+                  select
+                  fullWidth
+                  label="Collection"
+                  placeholder="Country"
+                  {...getFieldProps('country')}
+                  SelectProps={{ native: true }}
+                  error={Boolean(touched.country && errors.country)}
+                  helperText={touched.country && errors.country}
+                >
+                  <option value="" />
+                  {countries.map((option) => (
+                    <option key={option.code} value={option.label}>
+                      {option.label}
+                    </option>
+                  ))}
+                </TextField>
 
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
+                <TextField
+                  select
+                  fullWidth
+                  label="Blockchain"
+                  placeholder="Country"
+                  {...getFieldProps('country')}
+                  SelectProps={{ native: true }}
+                  error={Boolean(touched.country && errors.country)}
+                  helperText={touched.country && errors.country}
+                >
+                  <option value="" />
+                  {countries.map((option) => (
+                    <option key={option.code} value={option.label}>
+                      {option.label}
+                    </option>
+                  ))}
+                </TextField>
+
+                <TextField
+                  fullWidth
+                  label="Amount"
+                  {...getFieldProps('email')}
+                  error={Boolean(touched.email && errors.email)}
+                  helperText={touched.email && errors.email}
+                />
+
+                {/* <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
                   <TextField
                     fullWidth
                     label="State/Region"
@@ -263,11 +299,11 @@ export default function AssetNewForm({ isEdit, currentUser }) {
                     error={Boolean(touched.role && errors.role)}
                     helperText={touched.role && errors.role}
                   />
-                </Stack>
+                </Stack> */}
 
                 <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
                   <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                    {!isEdit ? 'Create User' : 'Save Changes'}
+                    {!isEdit ? 'Create' : 'Save Changes'}
                   </LoadingButton>
                 </Box>
               </Stack>
