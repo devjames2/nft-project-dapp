@@ -12,8 +12,8 @@ import { fData } from '../../utils/formatNumber';
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
-  width: 400,
-  height: 400,
+  width: 260,
+  height: 200,
   margin: 'auto',
   borderRadius: '0%',
   padding: theme.spacing(1),
@@ -57,14 +57,14 @@ const PlaceholderStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-UploadAvatar.propTypes = {
+UploadItemImage.propTypes = {
   error: PropTypes.bool,
   file: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   caption: PropTypes.node,
   sx: PropTypes.object
 };
 
-export default function UploadAvatar({ error, file, caption, sx, ...other }) {
+export default function UploadItemImage({ error, file, caption, sx, ...other }) {
   const { getRootProps, getInputProps, isDragActive, isDragReject, fileRejections } = useDropzone({
     multiple: false,
     ...other

@@ -42,7 +42,7 @@ export default function AssetCreate() {
   }, []);
 
   return (
-    <Page title="User: Create a new user | Minimal-UI">
+    <Page title="Item: Create a new item | Minimal-UI">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading={!isEdit ? 'Create New Item' : 'Edit user'}

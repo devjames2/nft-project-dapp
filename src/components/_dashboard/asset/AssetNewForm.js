@@ -22,64 +22,59 @@ import {
 import { fData } from '../../../utils/formatNumber';
 import fakeRequest from '../../../utils/fakeRequest';
 // routes
-import { PATH_DASHBOARD } from '../../../routes/paths';
+import { PATH_DASHBOARD, PATH_ASSET } from '../../../routes/paths';
 //
 import Label from '../../Label';
-import { UploadAvatar } from '../../upload';
-import countries from './countries';
+import { UploadItemImage } from '../../upload';
+import collections from './collections';
+import blockchains from './blockchains';
+import { lazyMintNewAsset } from '../../../redux/slices/assets';
 
 // ----------------------------------------------------------------------
 
 AssetNewForm.propTypes = {
-  isEdit: PropTypes.bool,
-  currentUser: PropTypes.object
+  isEdit: PropTypes.bool
 };
 
-export default function AssetNewForm({ isEdit, currentUser }) {
+export default function AssetNewForm({ isEdit }) {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const NewUserSchema = Yup.object().shape({
+  const NewItemSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
-    email: Yup.string().required('Email is required').email(),
-    phoneNumber: Yup.string().required('Phone number is required'),
-    address: Yup.string().required('Address is required'),
-    country: Yup.string().required('country is required'),
-    company: Yup.string().required('Company is required'),
-    state: Yup.string().required('State is required'),
-    city: Yup.string().required('City is required'),
-    role: Yup.string().required('Role Number is required'),
-    avatarUrl: Yup.mixed().required('Avatar is required')
+    collection: Yup.string().required('Collection is required'),
+    blockchain: Yup.string().required('Blockchain is required')
   });
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: currentUser?.name || '',
-      email: currentUser?.email || '',
-      phoneNumber: currentUser?.phoneNumber || '',
-      address: currentUser?.address || '',
-      country: currentUser?.country || '',
-      state: currentUser?.state || '',
-      city: currentUser?.city || '',
-      zipCode: currentUser?.zipCode || '',
-      avatarUrl: currentUser?.avatarUrl || null,
-      isVerified: currentUser?.isVerified || true,
-      status: currentUser?.status,
-      company: currentUser?.company || '',
-      role: currentUser?.role || ''
+      imageUrl: null,
+      name: '',
+      externalLink: '',
+      description: '',
+      collection: '',
+      blockchain: '',
+      amount: 1
     },
-    validationSchema: NewUserSchema,
+    validationSchema: NewItemSchema,
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
+      console.log(values);
       try {
         await fakeRequest(500);
         resetForm();
         setSubmitting(false);
+        const response = await lazyMintNewAsset(values);
+        console.log(response);
         enqueueSnackbar(!isEdit ? 'Create success' : 'Update success', { variant: 'success' });
-        navigate(PATH_DASHBOARD.user.list);
+        // navigate(`/${response.data.token_address}/${response.data.tokenId}`);
+        // navigate(`${PATH_ASSET}/contractAddress/tokenId`);
+        console.log(response);
+        navigate(`${PATH_ASSET.root}/${response.data.token_address}/${response.data.token_id}`);
       } catch (error) {
         console.error(error);
         setSubmitting(false);
+        enqueueSnackbar('False', { variant: 'error' });
         setErrors(error);
       }
     }
@@ -91,7 +86,7 @@ export default function AssetNewForm({ isEdit, currentUser }) {
     (acceptedFiles) => {
       const file = acceptedFiles[0];
       if (file) {
-        setFieldValue('avatarUrl', {
+        setFieldValue('imageUrl', {
           ...file,
           preview: URL.createObjectURL(file)
         });
@@ -105,23 +100,14 @@ export default function AssetNewForm({ isEdit, currentUser }) {
       <Form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
-            <Card sx={{ py: 10, px: 3 }}>
-              {isEdit && (
-                <Label
-                  color={values.status !== 'active' ? 'error' : 'success'}
-                  sx={{ textTransform: 'uppercase', position: 'absolute', top: 24, right: 24 }}
-                >
-                  {values.status}
-                </Label>
-              )}
-
+            <Card sx={{ py: 2, px: 1 }}>
               <Box sx={{ mb: 5 }}>
-                <UploadAvatar
+                <UploadItemImage
                   accept="image/*"
-                  file={values.avatarUrl}
+                  file={values.imageUrl}
                   maxSize={3145728}
                   onDrop={handleDrop}
-                  error={Boolean(touched.avatarUrl && errors.avatarUrl)}
+                  error={Boolean(touched.imageUrl && errors.imageUrl)}
                   caption={
                     <Typography
                       variant="caption"
@@ -139,48 +125,9 @@ export default function AssetNewForm({ isEdit, currentUser }) {
                   }
                 />
                 <FormHelperText error sx={{ px: 2, textAlign: 'center' }}>
-                  {touched.avatarUrl && errors.avatarUrl}
+                  {touched.imageUrl && errors.imageUrl}
                 </FormHelperText>
               </Box>
-
-              {/* {isEdit && (
-                <FormControlLabel
-                  labelPlacement="start"
-                  control={
-                    <Switch
-                      onChange={(event) => setFieldValue('status', event.target.checked ? 'banned' : 'active')}
-                      checked={values.status !== 'active'}
-                    />
-                  }
-                  label={
-                    <>
-                      <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                        Banned
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        Apply disable account
-                      </Typography>
-                    </>
-                  }
-                  sx={{ mx: 0, mb: 3, width: 1, justifyContent: 'space-between' }}
-                />
-              )}
-
-              <FormControlLabel
-                labelPlacement="start"
-                control={<Switch {...getFieldProps('isVerified')} checked={values.isVerified} />}
-                label={
-                  <>
-                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                      Email Verified
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                      Disabling this will automatically send the user a verification email
-                    </Typography>
-                  </>
-                }
-                sx={{ mx: 0, width: 1, justifyContent: 'space-between' }}
-              /> */}
             </Card>
           </Grid>
 
@@ -198,9 +145,9 @@ export default function AssetNewForm({ isEdit, currentUser }) {
                 <TextField
                   fullWidth
                   label="External link"
-                  {...getFieldProps('email')}
-                  error={Boolean(touched.email && errors.email)}
-                  helperText={touched.email && errors.email}
+                  {...getFieldProps('externalLink')}
+                  error={Boolean(touched.externalLink && errors.externalLink)}
+                  helperText={touched.externalLink && errors.externalLink}
                 />
 
                 <TextField
@@ -208,22 +155,22 @@ export default function AssetNewForm({ isEdit, currentUser }) {
                   rows={10}
                   multiline
                   label="Description"
-                  {...getFieldProps('phoneNumber')}
-                  error={Boolean(touched.phoneNumber && errors.phoneNumber)}
-                  helperText={touched.phoneNumber && errors.phoneNumber}
+                  {...getFieldProps('description')}
+                  error={Boolean(touched.description && errors.description)}
+                  helperText={touched.description && errors.description}
                 />
                 <TextField
                   select
                   fullWidth
                   label="Collection"
-                  placeholder="Country"
-                  {...getFieldProps('country')}
+                  placeholder="Collection"
+                  {...getFieldProps('collection')}
                   SelectProps={{ native: true }}
-                  error={Boolean(touched.country && errors.country)}
-                  helperText={touched.country && errors.country}
+                  error={Boolean(touched.collection && errors.collection)}
+                  helperText={touched.collection && errors.collection}
                 >
                   <option value="" />
-                  {countries.map((option) => (
+                  {collections.map((option) => (
                     <option key={option.code} value={option.label}>
                       {option.label}
                     </option>
@@ -234,14 +181,14 @@ export default function AssetNewForm({ isEdit, currentUser }) {
                   select
                   fullWidth
                   label="Blockchain"
-                  placeholder="Country"
-                  {...getFieldProps('country')}
+                  placeholder="Blockchain"
+                  {...getFieldProps('blockchain')}
                   SelectProps={{ native: true }}
-                  error={Boolean(touched.country && errors.country)}
-                  helperText={touched.country && errors.country}
+                  error={Boolean(touched.blockchain && errors.blockchain)}
+                  helperText={touched.blockchain && errors.blockchain}
                 >
                   <option value="" />
-                  {countries.map((option) => (
+                  {blockchains.map((option) => (
                     <option key={option.code} value={option.label}>
                       {option.label}
                     </option>
@@ -251,56 +198,10 @@ export default function AssetNewForm({ isEdit, currentUser }) {
                 <TextField
                   fullWidth
                   label="Amount"
-                  {...getFieldProps('email')}
-                  error={Boolean(touched.email && errors.email)}
-                  helperText={touched.email && errors.email}
+                  {...getFieldProps('amount')}
+                  error={Boolean(touched.amount && errors.amount)}
+                  helperText={touched.amount && errors.amount}
                 />
-
-                {/* <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
-                  <TextField
-                    fullWidth
-                    label="State/Region"
-                    {...getFieldProps('state')}
-                    error={Boolean(touched.state && errors.state)}
-                    helperText={touched.state && errors.state}
-                  />
-                  <TextField
-                    fullWidth
-                    label="City"
-                    {...getFieldProps('city')}
-                    error={Boolean(touched.city && errors.city)}
-                    helperText={touched.city && errors.city}
-                  />
-                </Stack>
-
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
-                  <TextField
-                    fullWidth
-                    label="Address"
-                    {...getFieldProps('address')}
-                    error={Boolean(touched.address && errors.address)}
-                    helperText={touched.address && errors.address}
-                  />
-                  <TextField fullWidth label="Zip/Code" {...getFieldProps('zipCode')} />
-                </Stack>
-
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
-                  <TextField
-                    fullWidth
-                    label="Company"
-                    {...getFieldProps('company')}
-                    error={Boolean(touched.company && errors.company)}
-                    helperText={touched.company && errors.company}
-                  />
-                  <TextField
-                    fullWidth
-                    label="Role"
-                    {...getFieldProps('role')}
-                    error={Boolean(touched.role && errors.role)}
-                    helperText={touched.role && errors.role}
-                  />
-                </Stack> */}
-
                 <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
                   <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
                     {!isEdit ? 'Create' : 'Save Changes'}
