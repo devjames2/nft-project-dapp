@@ -59,6 +59,19 @@ import reportWebVitals from './reportWebVitals';
 
 // ----------------------------------------------------------------------
 
+async function metamaskApproval() {
+  const { ethereum } = window;
+  const t = await ethereum._metamask.isUnlocked();
+  if (!t) {
+    Object.entries(localStorage)
+      .map((x) => x[0])
+      .filter((x) => x.substring(0, 8) === 'session_')
+      .map((x) => localStorage.removeItem(x));
+  }
+}
+
+window.addEventListener('load', metamaskApproval);
+
 ReactDOM.render(
   <HelmetProvider>
     <ReduxProvider store={store}>

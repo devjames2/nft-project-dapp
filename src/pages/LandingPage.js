@@ -1,6 +1,7 @@
 // material
 import { styled } from '@mui/material/styles';
 // components
+import { useWeb3React } from '@web3-react/core';
 import Page from '../components/Page';
 import {
   LandingHero,
