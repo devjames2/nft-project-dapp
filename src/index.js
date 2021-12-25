@@ -61,8 +61,8 @@ import reportWebVitals from './reportWebVitals';
 
 async function metamaskApproval() {
   const { ethereum } = window;
-  const t = await ethereum._metamask.isUnlocked();
-  if (!t) {
+  const isMetamaskUnlocked = await ethereum._metamask.isUnlocked();
+  if (!isMetamaskUnlocked) {
     Object.entries(localStorage)
       .map((x) => x[0])
       .filter((x) => x.substring(0, 8) === 'session_')
