@@ -72,6 +72,15 @@ async function metamaskApproval() {
 
 window.addEventListener('load', metamaskApproval);
 
+window.ethereum.on('accountsChanged', async (accounts) => {
+  if (accounts.length === 0) {
+    Object.entries(localStorage)
+      .map((x) => x[0])
+      .filter((x) => x.substring(0, 8) === 'session_')
+      .map((x) => localStorage.removeItem(x));
+  }
+});
+
 ReactDOM.render(
   <HelmetProvider>
     <ReduxProvider store={store}>
