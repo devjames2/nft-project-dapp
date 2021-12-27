@@ -23,33 +23,7 @@ export default function WalletGuard({ children }) {
   const activating = currentConnector === activatingConnector;
   const connected = currentConnector === connector;
 
-  useEffect(() => {
-    if (!connected) {
-      setActivatingConnector(currentConnector);
-      activate(currentConnector);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (activatingConnector && activatingConnector === connector) {
-      setActivatingConnector(undefined);
-    }
-  }, [activatingConnector, connector]);
-
-  useEffect(() => {
-    const { ethereum } = window;
-    console.log(ethereum._state);
-    setAccountChanged(ethereum._state.accounts ? ethereum._state.accounts.length : -1);
-  }, [active, error, triedEager, activate]);
-
-  if (activating)
-    return (
-      <>
-        <LoadingScreen />
-      </>
-    );
-
-  if (error || accountChanged === 0) return <Navigate to="/" />;
+  // console.log(connector, activate, active, library, account, error);
 
   return <>{children}</>;
 }

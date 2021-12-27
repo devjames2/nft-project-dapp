@@ -41,7 +41,7 @@ export function lazyMintNewAsset(params) {
   const {
     token_address = '0xb35691d2475e95040edb891bc4497ed7b5044009',
     token_id = '1',
-    owner_of = '0xcea695c0f108833f347239bb2f05cef06f6a7658',
+    owner_of = '0xC6159EEa73133F9813304a272DB2203c09b872F1',
     amount,
     contract_type = 'ERC721',
     name,

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import clockFill from '@iconify/icons-eva/clock-fill';
 import roundVerified from '@iconify/icons-ic/round-verified';
 import roundVerifiedUser from '@iconify/icons-ic/round-verified-user';
+import { useWeb3React } from '@web3-react/core';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Tab, Card, Grid, Divider, Skeleton, Container, Typography } from '@mui/material';
@@ -88,6 +89,7 @@ export default function TokenDetail() {
   const [itemProps, setItemProps] = useState({});
   const { product, error } = useSelector((state) => state.product);
   const { itemDetail, isLoading } = useSelector((state) => state.assets);
+  const { active, account } = useWeb3React();
 
   useEffect(() => {
     // dispatch(getProduct(name));
@@ -102,6 +104,15 @@ export default function TokenDetail() {
       });
     }
   }, [itemDetail]);
+
+  // useEffect(() => {
+  //   // console.log(connector);
+  //   // console.log(activate);
+  //   console.log(active);
+  //   // console.log(library);
+  //   console.log(account);
+  //   // console.log(error);
+  // }, [active, account]);
 
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
@@ -133,7 +144,7 @@ export default function TokenDetail() {
                     <ItemDetailsCarousel />
                   </Grid>
                   <Grid item xs={12} md={6} lg={5}>
-                    <ItemDetailsSummary />
+                    <ItemDetailsSummary owner={itemDetail.owner_of} />
                   </Grid>
                 </Grid>
               </Card>

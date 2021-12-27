@@ -35,15 +35,17 @@ import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
+import { ethers, providers } from 'ethers';
 // material
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 // redux
+import { Web3ReactProvider } from '@web3-react/core';
 import { store, persistor } from './redux/store';
 // contexts
 import { SettingsProvider } from './contexts/SettingsContext';
 import { CollapseDrawerProvider } from './contexts/CollapseDrawerContext';
-import { WalletProvider } from './contexts/WalletContext';
+// import { WalletProvider } from './contexts/WalletContext';
 // components
 import LoadingScreen from './components/LoadingScreen';
 
@@ -58,6 +60,12 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
 // ----------------------------------------------------------------------
+
+function getLibrary(provider, connector) {
+  const library = new ethers.providers.Web3Provider(provider); // this will vary according to whether you use e.g. ethers or web3.js
+  // library.pollingInterval = 12000;
+  return library;
+}
 
 async function metamaskApproval() {
   const { ethereum } = window;
@@ -90,9 +98,11 @@ ReactDOM.render(
             <CollapseDrawerProvider>
               <BrowserRouter>
                 <AuthProvider>
-                  <WalletProvider>
+                  {/* <WalletProvider> */}
+                  <Web3ReactProvider getLibrary={getLibrary}>
                     <App />
-                  </WalletProvider>
+                  </Web3ReactProvider>
+                  {/* </WalletProvider> */}
                 </AuthProvider>
               </BrowserRouter>
             </CollapseDrawerProvider>

@@ -104,7 +104,7 @@ export default function WalletSignGuard({ children }) {
         .getSigner(account)
         .signMessage('👋')
         .then((signature) => {
-          window.alert(`Success!\n\n${signature}`);
+          // window.alert(`Success!\n\n${signature}`);
           localStorage.setItem(`session_${account}`, signature);
           setUserHasSigned(true);
         })

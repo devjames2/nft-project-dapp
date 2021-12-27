@@ -2,6 +2,7 @@
 import { Icon } from '@iconify/react';
 import { sentenceCase } from 'change-case';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import minusFill from '@iconify/icons-eva/minus-fill';
 import twitterFill from '@iconify/icons-eva/twitter-fill';
@@ -9,6 +10,7 @@ import linkedinFill from '@iconify/icons-eva/linkedin-fill';
 import facebookFill from '@iconify/icons-eva/facebook-fill';
 import instagramFilled from '@iconify/icons-ant-design/instagram-filled';
 import roundAddShoppingCart from '@iconify/icons-ic/round-add-shopping-cart';
+import { useWeb3React } from '@web3-react/core';
 import { useFormik, Form, FormikProvider, useField } from 'formik';
 // material
 import { useTheme, styled } from '@mui/material/styles';
@@ -114,14 +116,23 @@ const Incrementer = (props) => {
   );
 };
 
-export default function ItemDetailsSummary() {
+export default function ItemDetailsSummary({ owner }) {
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const { product, checkout } = useSelector((state) => state.product);
   const { itemDetail } = useSelector((state) => state.assets);
+  const { connector, activate, active, library, account } = useWeb3React();
   // const { id, sizes, price, cover, status, colors, available, priceSale, totalRating, totalReview, inventoryType } =
   //   product;
+
+  useEffect(() => {
+    console.log(connector);
+    console.log(activate);
+    console.log(active);
+    console.log(library);
+    console.log(account);
+  }, [connector, activate, active, library, account]);
 
   const {
     amount,
@@ -270,21 +281,40 @@ export default function ItemDetailsSummary() {
           <Divider sx={{ borderStyle: 'dashed' }} />
 
           <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }} sx={{ mt: 5 }}>
-            <Button
-              fullWidth
-              // disabled={isMaxQuantity}
-              size="large"
-              type="button"
-              color="warning"
-              variant="contained"
-              onClick={handleAddCart}
-              sx={{ whiteSpace: 'nowrap' }}
-            >
-              Edit
-            </Button>
-            <Button fullWidth size="large" type="submit" variant="contained">
-              Sell
-            </Button>
+            {owner_of === '0xcea695c0f108833f347239bb2f05cef06f6a7658' ? (
+              <>
+                <Button
+                  fullWidth
+                  // disabled={isMaxQuantity}
+                  size="large"
+                  type="button"
+                  color="warning"
+                  variant="contained"
+                  onClick={handleAddCart}
+                  sx={{ whiteSpace: 'nowrap' }}
+                >
+                  Edit
+                </Button>
+                <Button fullWidth size="large" type="submit" variant="contained">
+                  Sell
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  fullWidth
+                  // disabled={isMaxQuantity}
+                  size="large"
+                  type="button"
+                  color="warning"
+                  variant="contained"
+                  onClick={handleAddCart}
+                  sx={{ whiteSpace: 'nowrap' }}
+                >
+                  Make Offer
+                </Button>
+              </>
+            )}
           </Stack>
 
           <Box sx={{ mt: 3, textAlign: 'center' }}>

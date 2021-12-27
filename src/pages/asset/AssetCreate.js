@@ -34,12 +34,8 @@ export default function AssetCreate() {
   }, [dispatch]);
 
   useEffect(() => {
-    // if (!account && !active) {
-    //   console.log('wallet disconnected');
-    // }
-    // console.log(account);
-    // console.log(active);
-  }, []);
+    console.log(account, active);
+  }, [account, active]);
 
   return (
     <Page title="Item: Create a new item | Minimal-UI">

@@ -158,7 +158,11 @@ export default function Router() {
         },
         {
           path: ':contractAddress/:tokenId',
-          element: <TokenDetail />
+          element: (
+            <WalletGuard>
+              <TokenDetail />
+            </WalletGuard>
+          )
         }
       ]
     },
