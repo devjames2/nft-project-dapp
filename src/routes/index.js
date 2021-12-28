@@ -1,7 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { Navigate, useRoutes, useLocation } from 'react-router-dom';
 // layouts
-import AssetCreate from '../pages/asset/AssetCreate';
+// import AssetCreate from '../pages/asset/AssetCreate';
 import MainLayout from '../layouts/main';
 import DashboardLayout from '../layouts/dashboard';
 import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
@@ -13,6 +13,7 @@ import WalletSignGuard from '../guards/WalletSignGuard';
 // import RoleBasedGuard from '../guards/RoleBasedGuard';
 // components
 import LoadingScreen from '../components/LoadingScreen';
+// import AssetList from 'src/pages/asset/AssetList';
 
 // ----------------------------------------------------------------------
 
@@ -148,6 +149,10 @@ export default function Router() {
       element: <DashboardLayout />,
       children: [
         {
+          path: 'list',
+          element: <AssetList />
+        },
+        {
           path: 'create',
           // element: <AssetCreate />
           element: (
@@ -251,7 +256,10 @@ export default function Router() {
 }
 
 // IMPORT COMPONENTS
-
+// Assets
+const AssetCreate = Loadable(lazy(() => import('../pages/asset/AssetCreate')));
+const TokenDetail = Loadable(lazy(() => import('../pages/asset/TokenDetail')));
+const AssetList = Loadable(lazy(() => import('../pages/asset/AssetList')));
 // Authentication
 const Login = Loadable(lazy(() => import('../pages/authentication/Login')));
 const Register = Loadable(lazy(() => import('../pages/authentication/Register')));
@@ -281,7 +289,6 @@ const Chat = Loadable(lazy(() => import('../pages/dashboard/Chat')));
 const Mail = Loadable(lazy(() => import('../pages/dashboard/Mail')));
 const Calendar = Loadable(lazy(() => import('../pages/dashboard/Calendar')));
 const Kanban = Loadable(lazy(() => import('../pages/dashboard/Kanban')));
-const TokenDetail = Loadable(lazy(() => import('../pages/asset/TokenDetail')));
 // Main
 const LandingPage = Loadable(lazy(() => import('../pages/LandingPage')));
 const About = Loadable(lazy(() => import('../pages/About')));

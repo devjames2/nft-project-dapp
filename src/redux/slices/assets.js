@@ -8,7 +8,8 @@ import axios from '../../utils/axios_real';
 const initialState = {
   isLoading: false,
   error: false,
-  itemDetail: null
+  itemDetail: null,
+  itemList: []
 };
 
 const slice = createSlice({
@@ -30,6 +31,12 @@ const slice = createSlice({
     getLazyMintedItemSuccess(state, action) {
       state.isLoading = false;
       state.itemDetail = action.payload;
+    },
+
+    // GET ALL ITEMS
+    getLazyMintedItemsSuccess(state, action) {
+      state.isLoading = false;
+      state.itemList = action.payload;
     }
   }
 });
@@ -74,6 +81,18 @@ export function getLazyMintedItem(contractAddress, tokenId) {
       const response = await axios.get(`/items/vouchers/${contractAddress}/${tokenId}`);
       console.log(response);
       dispatch(slice.actions.getLazyMintedItemSuccess(response.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function getLazyMintedItems() {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.get('/items/vouchers');
+      dispatch(slice.actions.getLazyMintedItemsSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

@@ -17,7 +17,7 @@ const menuConfig = [
   {
     title: 'Explore',
     icon: <Icon icon={homeFill} {...ICON_SIZE} />,
-    path: PATH_PAGE.exploreCollections
+    path: PATH_ASSET.list
   },
   {
     title: 'Create',

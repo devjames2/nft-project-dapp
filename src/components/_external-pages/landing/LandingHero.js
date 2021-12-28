@@ -95,7 +95,7 @@ export default function LandingHero() {
                 size="large"
                 variant="contained"
                 component={RouterLink}
-                to={PATH_DASHBOARD.root}
+                to={PATH_ASSET.list}
                 startIcon={<Icon icon={flashFill} width={20} height={20} />}
               >
                 Explore

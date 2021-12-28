@@ -72,8 +72,10 @@ BlogPostCard.propTypes = {
 export default function BlogPostCard({ post, index }) {
   const { cover, title, view, comment, share, author, createdAt } = post;
   const linkTo = `${PATH_DASHBOARD.blog.root}/post/${paramCase(title)}`;
-  const latestPostLarge = index === 0;
-  const latestPost = index === 1 || index === 2;
+  // const latestPostLarge = index === 0;
+  // const latestPost = index === 1 || index === 2;
+  const latestPostLarge = false;
+  const latestPost = false;
 
   const POST_INFO = [
     { number: comment, icon: messageCircleFill },
@@ -105,7 +107,7 @@ export default function BlogPostCard({ post, index }) {
             })
           }}
         >
-          <SvgIconStyle
+          {/* <SvgIconStyle
             color="paper"
             src="/static/icons/shape-avatar.svg"
             sx={{
@@ -116,8 +118,8 @@ export default function BlogPostCard({ post, index }) {
               position: 'absolute',
               ...((latestPostLarge || latestPost) && { display: 'none' })
             }}
-          />
-          <AvatarStyle
+          /> */}
+          {/* <AvatarStyle
             alt={author.name}
             src={author.avatarUrl}
             sx={{
@@ -129,7 +131,7 @@ export default function BlogPostCard({ post, index }) {
                 height: 40
               })
             }}
-          />
+          /> */}
 
           <CoverImgStyle alt={title} src={cover} />
         </CardMediaStyle>
