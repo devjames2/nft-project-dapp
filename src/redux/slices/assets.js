@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { createSlice } from '@reduxjs/toolkit';
 // utils
 import axios from '../../utils/axios_real';
@@ -46,30 +45,30 @@ export default slice.reducer;
 
 export function lazyMintNewAsset(params) {
   const {
-    token_address = '0xb35691d2475e95040edb891bc4497ed7b5044009',
-    token_id = '1',
-    owner_of = '0xC6159EEa73133F9813304a272DB2203c09b872F1',
+    tokenAddress = '0xb35691d2475e95040edb891bc4497ed7b5044009',
+    tokenId = '1',
+    ownerOf = '0xC6159EEa73133F9813304a272DB2203c09b872F1',
     amount,
-    contract_type = 'ERC721',
+    contractType = 'ERC721',
     name,
     symbol = 'KRB',
-    token_uri = 'https://ipfs.moralis.io:2053/ipfs/QmfHJRnapkxVHke8FP2iSWZmwnprjAHAMyaUqrdfSUWs3T',
+    tokenUri = 'https://ipfs.moralis.io:2053/ipfs/QmfHJRnapkxVHke8FP2iSWZmwnprjAHAMyaUqrdfSUWs3T',
     metadata,
-    is_valid = 1,
+    isValid = 1,
     frozen = 0
   } = params;
 
   return axios.post('/items/voucher', {
-    token_address,
-    token_id,
-    owner_of,
+    tokenAddress,
+    tokenId,
+    ownerOf,
     amount,
-    contract_type,
+    contractType,
     name,
     symbol,
-    token_uri,
+    tokenUri,
     metadata,
-    is_valid,
+    isValid,
     frozen
   });
 }

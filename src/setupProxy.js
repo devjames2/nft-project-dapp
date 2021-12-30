@@ -8,4 +8,11 @@ module.exports = function (app) {
       changeOrigin: true
     })
   );
+  app.use(
+    '/auth',
+    createProxyMiddleware({
+      target: 'http://52.231.48.130:8080',
+      changeOrigin: true
+    })
+  );
 };

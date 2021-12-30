@@ -70,7 +70,7 @@ export default function AssetNewForm({ isEdit }) {
         // navigate(`/${response.data.token_address}/${response.data.tokenId}`);
         // navigate(`${PATH_ASSET}/contractAddress/tokenId`);
         console.log(response);
-        navigate(`${PATH_ASSET.root}/${response.data.token_address}/${response.data.token_id}`);
+        navigate(`${PATH_ASSET.root}/${response.data.tokenAddress}/${response.data.tokenId}`);
       } catch (error) {
         console.error(error);
         setSubmitting(false);

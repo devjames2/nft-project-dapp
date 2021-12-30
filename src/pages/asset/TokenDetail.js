@@ -98,9 +98,12 @@ export default function TokenDetail() {
 
   useEffect(() => {
     if (itemDetail) {
-      console.log(JSON.parse(itemDetail.metadata));
+      // console.log(JSON.parse(itemDetail.metadata));
+      const imageUrl = itemDetail.metadata
+        ? JSON.parse(itemDetail.metadata).image
+        : 'https://file.mk.co.kr/meet/neds/2021/09/image_readtop_2021_927932_16329132754799395.jpg';
       setItemProps({
-        image: JSON.parse(itemDetail.metadata).image
+        image: imageUrl
       });
     }
   }, [itemDetail]);
@@ -144,7 +147,7 @@ export default function TokenDetail() {
                     <ItemDetailsCarousel />
                   </Grid>
                   <Grid item xs={12} md={6} lg={5}>
-                    <ItemDetailsSummary owner={itemDetail.owner_of} />
+                    <ItemDetailsSummary owner={itemDetail.ownerOf} />
                   </Grid>
                 </Grid>
               </Card>

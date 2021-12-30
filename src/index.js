@@ -36,6 +36,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { ethers, providers } from 'ethers';
+import Web3 from 'web3';
 // material
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -62,7 +63,9 @@ import reportWebVitals from './reportWebVitals';
 // ----------------------------------------------------------------------
 
 function getLibrary(provider, connector) {
-  const library = new ethers.providers.Web3Provider(provider); // this will vary according to whether you use e.g. ethers or web3.js
+  // const library = new ethers.providers.Web3Provider(provider); // this will vary according to whether you use e.g. ethers or web3.js
+  console.log(provider);
+  const library = new Web3(provider);
   // library.pollingInterval = 12000;
   return library;
 }

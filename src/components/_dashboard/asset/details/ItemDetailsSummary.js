@@ -134,19 +134,8 @@ export default function ItemDetailsSummary({ owner }) {
     console.log(account);
   }, [connector, activate, active, library, account]);
 
-  const {
-    amount,
-    contract_type,
-    frozen,
-    is_valid,
-    metadata,
-    name,
-    owner_of,
-    symbol,
-    token_address,
-    token_id,
-    token_uri
-  } = itemDetail;
+  const { amount, contractType, frozen, isValid, metadata, name, ownerOf, symbol, tokenAddress, tokenId, tokenUri } =
+    itemDetail;
 
   // const alreadyProduct = checkout.cart.map((item) => item.id).includes(id);
   // const isMaxQuantity = checkout.cart.filter((item) => item.id === id).map((item) => item.quantity)[0] >= available;
@@ -163,16 +152,16 @@ export default function ItemDetailsSummary({ owner }) {
     enableReinitialize: true,
     initialValues: {
       amount,
-      contract_type,
+      contractType,
       frozen,
-      is_valid,
+      isValid,
       metadata,
       name,
-      owner_of,
+      ownerOf,
       symbol,
-      token_address,
-      token_id,
-      token_uri
+      tokenAddress,
+      tokenId,
+      tokenUri
     },
     onSubmit: async (values, { setSubmitting }) => {
       // try {
@@ -206,10 +195,10 @@ export default function ItemDetailsSummary({ owner }) {
         <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
           <Label
             variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
-            color={is_valid ? 'success' : 'error'}
+            color={isValid ? 'success' : 'error'}
             sx={{ textTransform: 'uppercase' }}
           >
-            {sentenceCase(is_valid ? 'valid' : 'not valid')}
+            {sentenceCase(isValid ? 'valid' : 'not valid')}
           </Label>
 
           <Typography variant="h5" paragraph>
@@ -236,7 +225,7 @@ export default function ItemDetailsSummary({ owner }) {
           <Stack spacing={3} sx={{ my: 3 }}>
             <Stack direction="row" alignItems="center" justifyContent="space-between">
               <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
-                {`Owned by ${owner_of}`}
+                {`Owned by ${ownerOf}`}
               </Typography>
               {/* <ColorSinglePicker
                 {...getFieldProps('color')}
@@ -281,7 +270,7 @@ export default function ItemDetailsSummary({ owner }) {
           <Divider sx={{ borderStyle: 'dashed' }} />
 
           <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }} sx={{ mt: 5 }}>
-            {owner_of === '0xcea695c0f108833f347239bb2f05cef06f6a7658' ? (
+            {ownerOf === account ? (
               <>
                 <Button
                   fullWidth

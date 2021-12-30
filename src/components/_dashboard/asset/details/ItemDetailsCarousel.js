@@ -104,8 +104,12 @@ export default function ItemDetailsCarousel() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (itemDetail) {
-      const tempArr = String(JSON.parse(itemDetail.metadata).image).replace('ipfs://', '').split('/');
-      const url = `https://ipfs.infura.io/${tempArr[0]}/${tempArr[1]}/${tempArr[2]}`;
+      const tempArr = itemDetail.metadata
+        ? String(JSON.parse(itemDetail.metadata).image).replace('ipfs://', '').split('/')
+        : 'https://file.mk.co.kr/meet/neds/2021/09/image_readtop_2021_927932_16329132754799395.jpg';
+      const url = itemDetail.metadata
+        ? `https://ipfs.infura.io/${tempArr[0]}/${tempArr[1]}/${tempArr[2]}`
+        : 'https://file.mk.co.kr/meet/neds/2021/09/image_readtop_2021_927932_16329132754799395.jpg';
       console.log(url);
       setImages(new Array(url));
     }

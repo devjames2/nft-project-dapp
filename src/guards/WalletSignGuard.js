@@ -1,17 +1,20 @@
+/* eslint-disable prettier/prettier */
 import { useState, useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 // hooks
 import { useWeb3React } from '@web3-react/core';
 import {
   NoEthereumProviderError,
   UserRejectedRequestError as UserRejectedRequestErrorInjected
 } from '@web3-react/injected-connector';
+import { ethers, providers } from 'ethers';
 import { injected } from '../hooks/connectors';
 import { useEagerConnect } from '../hooks/useEagerConnect';
 import { useInactiveListener } from '../hooks/useInactiveListener';
 // import useWallet from '../hooks/useWallet';
 import LoadingScreen, { ProgressBarStyle } from '../components/LoadingScreen';
+import axios from '../utils/axios_real';
 
 WalletSignGuard.propTypes = {
   children: PropTypes.node
@@ -97,20 +100,69 @@ export default function WalletSignGuard({ children }) {
   useEffect(() => {
     const token = localStorage.getItem(`session_${account}`);
 
+    async function signMsg() {
+      try {
+        const nonceRes = await axios.get(`/auth?accountAddress=${account}`);
+        // const accounts = await library.eth.getAccounts();
+        // console.log(accounts);
+        // console.log(typeof accounts[0]);
+        // const tempAccount = '0x8eb9f52858d830ac99011eb1bdf7095b0ee3b958';
+        // console.log(typeof tempAccount);
+        const signature = await library.eth.personal.sign(
+          `I am signing my one-time nonce: ${nonceRes.data.nonce}`,
+          account,
+          ''
+        );
+        console.log(`I am signing my one-time nonce: ${nonceRes.data.nonce}`, account, '');
+        const jwtTokenRes = await axios.post(`/auth`, {
+          accountAddress: account,
+          signature,
+          nonce: nonceRes.data.nonce
+        });
+        localStorage.setItem(`session_${account}`, jwtTokenRes.data.accessToken);
+        axios.defaults.headers.common.Authorization = `${jwtTokenRes.data.accessToken}`;
+        setUserHasSigned(true);
+      } catch (error) {
+        console.log(error);
+      }
+
+      // const byteMessage = library.utils.arrayify(`I am signing my one-time nonce: ${nonce}`).then((value) => value);
+      // const hash = await ethers.utils.keccak256(`I am signing my one-time nonce: ${nonce}`);
+      // const temp = new ethers.providers.Web3Provider(window.ethereum);
+      // const sig = ethers.utils.arrayify(hash);
+      // console.log(sig);
+      // library
+      //   .getSigner(account)
+      //   .signMessage(hash)
+      //   .then((signature) => {
+      //     console.log({
+      //       accountAddress: account,
+      //       signature,
+      //       nonce
+      //     });
+      //     const jwtTokenPromise = axios.post(`/auth`, {
+      //       accountAddress: account,
+      //       signature,
+      //       nonce
+      //     });
+      //     jwtTokenPromise
+      //       .then((res) => {
+      //         console.log(res.data);
+      //       })
+      //       .catch(() => console.log);
+      //     localStorage.setItem(`session_${account}`, signature);
+      //     setUserHasSigned(true);
+      //   })
+      //   .catch((error) => {
+      //     window.alert(`Failure!${error && error.message ? `\n\n${error.message}` : ''}`);
+      //   });
+    }
+
     // console.log(token);
 
+    // 지갑연결은 되었으나 jwt token 이 없는 경우.
     if (active && !token) {
-      library
-        .getSigner(account)
-        .signMessage('👋')
-        .then((signature) => {
-          // window.alert(`Success!\n\n${signature}`);
-          localStorage.setItem(`session_${account}`, signature);
-          setUserHasSigned(true);
-        })
-        .catch((error) => {
-          window.alert(`Failure!${error && error.message ? `\n\n${error.message}` : ''}`);
-        });
+      signMsg();
     }
   }, [active]);
 

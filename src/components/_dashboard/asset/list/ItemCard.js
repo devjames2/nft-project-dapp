@@ -62,32 +62,16 @@ const CoverImgStyle = styled('img')({
 // };
 
 export default function ItemCard({ data }) {
-  const {
-    amount,
-    contract_type,
-    frozen,
-    is_valid,
-    metadata,
-    name,
-    owner_of,
-    symbol,
-    token_address,
-    token_id,
-    token_uri
-  } = data;
-  const linkTo = `${PATH_ASSET.root}/${token_address}/${token_id}`;
+  console.log(data);
+  const { amount, contractType, frozen, isValid, metadata, name, ownerOf, symbol, tokenAddress, tokenId, tokenUri } =
+    data;
+  const linkTo = `${PATH_ASSET.root}/${tokenAddress}/${tokenId}`;
   const tempArr = metadata
     ? String(JSON.parse(metadata).image).replace('ipfs://', '').split('/')
     : 'https://file.mk.co.kr/meet/neds/2021/09/image_readtop_2021_927932_16329132754799395.jpg';
   const cover = metadata
     ? `https://ipfs.infura.io/${tempArr[0]}/${tempArr[1]}/${tempArr[2]}`
     : 'https://file.mk.co.kr/meet/neds/2021/09/image_readtop_2021_927932_16329132754799395.jpg';
-
-  // const POST_INFO = [
-  //   { number: comment, icon: messageCircleFill },
-  //   { number: view, icon: eyeFill },
-  //   { number: share, icon: shareFill }
-  // ];
 
   return (
     <Grid item xs={12} sm={6} md={3}>
