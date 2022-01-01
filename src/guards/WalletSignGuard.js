@@ -108,11 +108,14 @@ export default function WalletSignGuard({ children }) {
         // console.log(typeof accounts[0]);
         // const tempAccount = '0x8eb9f52858d830ac99011eb1bdf7095b0ee3b958';
         // console.log(typeof tempAccount);
-        const signature = await library.eth.personal.sign(
-          `I am signing my one-time nonce: ${nonceRes.data.nonce}`,
-          account,
-          ''
-        );
+        // const signature = await library.eth.personal.sign(
+        //   `I am signing my one-time nonce: ${nonceRes.data.nonce}`,
+        //   account,
+        //   ''
+        // );
+        const signature = await library
+          .getSigner(account)
+          .signMessage(`I am signing my one-time nonce: ${nonceRes.data.nonce}`);
         console.log(`I am signing my one-time nonce: ${nonceRes.data.nonce}`, account, '');
         const jwtTokenRes = await axios.post(`/auth`, {
           accountAddress: account,

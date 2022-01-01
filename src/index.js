@@ -64,8 +64,9 @@ import reportWebVitals from './reportWebVitals';
 
 function getLibrary(provider, connector) {
   // const library = new ethers.providers.Web3Provider(provider); // this will vary according to whether you use e.g. ethers or web3.js
-  console.log(provider);
-  const library = new Web3(provider);
+  // console.log(provider);
+  // const library = new Web3(provider);
+  const library = new ethers.providers.Web3Provider(provider);
   // library.pollingInterval = 12000;
   return library;
 }

@@ -14,6 +14,7 @@ export const PATH_ASSET = {
   root: ROOTS_ASSET,
   create: path(ROOTS_ASSET, '/create'),
   tokenDetail: path(ROOTS_ASSET, '/:contractAddress/:tokenId'),
+  sell: path(ROOTS_ASSET, '/:contractAddress/:tokenId/sell'),
   list: path(ROOTS_ASSET, '/list')
 };
 

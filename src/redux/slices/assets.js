@@ -73,6 +73,46 @@ export function lazyMintNewAsset(params) {
   });
 }
 
+export function createNewSellItem(params) {
+  const {
+    tokenAddress,
+    tokenId,
+    ownerOf,
+    amount,
+    contractType,
+    name,
+    symbol,
+    tokenUri,
+    metadata,
+    isValid,
+    frozen,
+    minPrice,
+    signature,
+    creatorAddress,
+    royalty,
+    fee
+  } = params;
+
+  return axios.post('/items/sell', {
+    tokenAddress,
+    tokenId,
+    ownerOf,
+    amount,
+    contractType,
+    name,
+    symbol,
+    tokenUri,
+    metadata,
+    isValid,
+    frozen,
+    minPrice,
+    signature,
+    creatorAddress,
+    royalty,
+    fee
+  });
+}
+
 export function getLazyMintedItem(contractAddress, tokenId) {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());

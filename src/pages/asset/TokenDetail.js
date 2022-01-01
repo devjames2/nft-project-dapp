@@ -108,15 +108,6 @@ export default function TokenDetail() {
     }
   }, [itemDetail]);
 
-  // useEffect(() => {
-  //   // console.log(connector);
-  //   // console.log(activate);
-  //   console.log(active);
-  //   // console.log(library);
-  //   console.log(account);
-  //   // console.log(error);
-  // }, [active, account]);
-
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
   };

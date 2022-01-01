@@ -30,7 +30,7 @@ import {
 import { useDispatch, useSelector } from '../../../../redux/store';
 import { addCart, onGotoStep } from '../../../../redux/slices/product';
 // routes
-import { PATH_DASHBOARD } from '../../../../routes/paths';
+import { PATH_DASHBOARD, PATH_ASSET } from '../../../../routes/paths';
 // utils
 import { fShortenNumber, fCurrency } from '../../../../utils/formatNumber';
 //
@@ -173,7 +173,7 @@ export default function ItemDetailsSummary({ owner }) {
       //   }
       //   setSubmitting(false);
       //   handleBuyNow();
-      //   navigate(PATH_DASHBOARD.eCommerce.checkout);
+      navigate(`${PATH_ASSET.root}/${values.tokenAddress}/${values.tokenId}/sell`);
       // } catch (error) {
       //   setSubmitting(false);
       // }

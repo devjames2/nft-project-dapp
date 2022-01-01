@@ -8,6 +8,7 @@ import { useEagerConnect } from '../hooks/useEagerConnect';
 import { useInactiveListener } from '../hooks/useInactiveListener';
 // import useWallet from '../hooks/useWallet';
 import LoadingScreen, { ProgressBarStyle } from '../components/LoadingScreen';
+import axios from '../utils/axios_real';
 
 WalletGuard.propTypes = {
   children: PropTypes.node
@@ -22,6 +23,9 @@ export default function WalletGuard({ children }) {
   const currentConnector = injected;
   const activating = currentConnector === activatingConnector;
   const connected = currentConnector === connector;
+
+  const accessToken = localStorage.getItem(`session_${account}`);
+  axios.defaults.headers.common.Authorization = `${accessToken}`;
 
   // console.log(connector, activate, active, library, account, error);
 

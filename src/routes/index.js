@@ -168,6 +168,14 @@ export default function Router() {
               <TokenDetail />
             </WalletGuard>
           )
+        },
+        {
+          path: ':contractAddress/:tokenId/sell',
+          element: (
+            <WalletGuard>
+              <AssetSell />
+            </WalletGuard>
+          )
         }
       ]
     },
@@ -258,6 +266,7 @@ export default function Router() {
 // IMPORT COMPONENTS
 // Assets
 const AssetCreate = Loadable(lazy(() => import('../pages/asset/AssetCreate')));
+const AssetSell = Loadable(lazy(() => import('../pages/asset/AssetSell')));
 const TokenDetail = Loadable(lazy(() => import('../pages/asset/TokenDetail')));
 const AssetList = Loadable(lazy(() => import('../pages/asset/AssetList')));
 // Authentication
