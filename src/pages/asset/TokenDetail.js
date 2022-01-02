@@ -13,7 +13,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
 import { getProduct } from '../../redux/slices/product';
-import { getLazyMintedItem } from '../../redux/slices/assets';
+import { getLazyMintedItem, getListedSellItem } from '../../redux/slices/assets';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
@@ -88,12 +88,17 @@ export default function TokenDetail() {
   const [value, setValue] = useState('1');
   const [itemProps, setItemProps] = useState({});
   const { product, error } = useSelector((state) => state.product);
-  const { itemDetail, isLoading } = useSelector((state) => state.assets);
+  const { itemDetail, isLoading, listedSellItem } = useSelector((state) => state.assets);
   const { active, account } = useWeb3React();
 
   useEffect(() => {
     // dispatch(getProduct(name));
     dispatch(getLazyMintedItem(contractAddress, tokenId));
+  }, [dispatch]);
+
+  useEffect(() => {
+    // dispatch(getProduct(name));
+    dispatch(getListedSellItem(contractAddress, tokenId));
   }, [dispatch]);
 
   useEffect(() => {
@@ -131,6 +136,63 @@ export default function TokenDetail() {
           {/* <CartWidget /> */}
 
           {itemDetail && (
+            <>
+              <Card>
+                <Grid container>
+                  <Grid item xs={12} md={6} lg={7}>
+                    <ItemDetailsCarousel />
+                  </Grid>
+                  <Grid item xs={12} md={6} lg={5}>
+                    <ItemDetailsSummary owner={itemDetail.ownerOf} />
+                  </Grid>
+                </Grid>
+              </Card>
+
+              <Grid container sx={{ my: 8 }}>
+                {PRODUCT_DESCRIPTION.map((item) => (
+                  <Grid item xs={12} md={4} key={item.title}>
+                    <Box sx={{ my: 2, mx: 'auto', maxWidth: 280, textAlign: 'center' }}>
+                      <IconWrapperStyle>
+                        <Icon icon={item.icon} width={36} height={36} />
+                      </IconWrapperStyle>
+                      <Typography variant="subtitle1" gutterBottom>
+                        {item.title}
+                      </Typography>
+                      <Typography sx={{ color: 'text.secondary' }}>{item.description}</Typography>
+                    </Box>
+                  </Grid>
+                ))}
+              </Grid>
+
+              <Card>
+                {/* <TabContext value={value}>
+                  <Box sx={{ px: 3, bgcolor: 'background.neutral' }}>
+                    <TabList onChange={handleChangeTab}>
+                      <Tab disableRipple value="1" label="Description" />
+                      <Tab
+                        disableRipple
+                        value="2"
+                        label={`Review (${product.reviews.length})`}
+                        sx={{ '& .MuiTab-wrapper': { whiteSpace: 'nowrap' } }}
+                      />
+                    </TabList>
+                  </Box>
+
+                  <Divider />
+
+                  <TabPanel value="1">
+                    <Box sx={{ p: 3 }}>
+                      <Markdown children={product.description} />
+                    </Box>
+                  </TabPanel>
+                  <TabPanel value="2">
+                    <ProductDetailsReview product={product} />
+                  </TabPanel>
+                </TabContext> */}
+              </Card>
+            </>
+          )}
+          {listedSellItem && (
             <>
               <Card>
                 <Grid container>

@@ -8,7 +8,9 @@ const initialState = {
   isLoading: false,
   error: false,
   itemDetail: null,
-  itemList: []
+  itemList: [],
+  listedSellItems: [],
+  listedSellItem: null
 };
 
 const slice = createSlice({
@@ -36,6 +38,18 @@ const slice = createSlice({
     getLazyMintedItemsSuccess(state, action) {
       state.isLoading = false;
       state.itemList = action.payload;
+    },
+
+    // GET ALL LISTED SELL ITEMS
+    getListedSellItemsSuccess(state, action) {
+      state.isLoading = false;
+      state.listedSellItems = action.payload;
+    },
+
+    // GET A LISTED SELL ITEM
+    getListedSellItemSuccess(state, action) {
+      state.isLoading = false;
+      state.listedSellItem = action.payload;
     }
   }
 });
@@ -132,6 +146,32 @@ export function getLazyMintedItems() {
     try {
       const response = await axios.get('/items/vouchers');
       dispatch(slice.actions.getLazyMintedItemsSuccess(response.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function getListedSellItems() {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.get('/items/sell');
+      console.log(response);
+      dispatch(slice.actions.getListedSellItemsSuccess(response.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function getListedSellItem(id) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.get(`/items/sell/${id}`);
+      console.log(response);
+      dispatch(slice.actions.getListedSellItemsSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

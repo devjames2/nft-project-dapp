@@ -137,6 +137,8 @@ export default function ItemDetailsSummary({ owner }) {
   const { amount, contractType, frozen, isValid, metadata, name, ownerOf, symbol, tokenAddress, tokenId, tokenUri } =
     itemDetail;
 
+  console.log(itemDetail);
+
   // const alreadyProduct = checkout.cart.map((item) => item.id).includes(id);
   // const isMaxQuantity = checkout.cart.filter((item) => item.id === id).map((item) => item.quantity)[0] >= available;
 

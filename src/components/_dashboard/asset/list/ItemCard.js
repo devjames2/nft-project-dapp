@@ -8,7 +8,7 @@ import shareFill from '@iconify/icons-eva/share-fill';
 import messageCircleFill from '@iconify/icons-eva/message-circle-fill';
 // material
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Card, Grid, Avatar, Typography, CardContent } from '@mui/material';
+import { Box, Card, Grid, Avatar, Typography, CardContent, Stack } from '@mui/material';
 // routes
 import { PATH_DASHBOARD, PATH_ASSET } from '../../../../routes/paths';
 // utils
@@ -63,8 +63,20 @@ const CoverImgStyle = styled('img')({
 
 export default function ItemCard({ data }) {
   console.log(data);
-  const { amount, contractType, frozen, isValid, metadata, name, ownerOf, symbol, tokenAddress, tokenId, tokenUri } =
-    data;
+  const {
+    amount,
+    contractType,
+    frozen,
+    isValid,
+    metadata,
+    name,
+    ownerOf,
+    symbol,
+    tokenAddress,
+    tokenId,
+    tokenUri,
+    minPrice
+  } = data;
   const linkTo = `${PATH_ASSET.root}/${tokenAddress}/${tokenId}`;
   const tempArr = metadata
     ? String(JSON.parse(metadata).image).replace('ipfs://', '').split('/')
@@ -99,11 +111,12 @@ export default function ItemCard({ data }) {
             pt: 4
           }}
         >
-          {/* <Typography gutterBottom variant="caption" sx={{ color: 'text.disabled', display: 'block' }}>
-            {fDate(createdAt)}
-          </Typography> */}
-
-          <TitleStyle to={linkTo}>{name}</TitleStyle>
+          <Stack direction="row" justifyContent="space-between">
+            <TitleStyle to={linkTo}>{name}</TitleStyle>
+            <Typography variant="button" textAlign="right">
+              {minPrice}&nbsp;ETH
+            </Typography>
+          </Stack>
 
           {/* <InfoStyle>
             {POST_INFO.map((info, index) => (

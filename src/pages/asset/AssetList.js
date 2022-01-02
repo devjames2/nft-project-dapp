@@ -9,7 +9,7 @@ import { Box, Grid, Button, Skeleton, Container, Stack } from '@mui/material';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
 import { getPostsInitial, getMorePosts } from '../../redux/slices/blog';
-import { getLazyMintedItems } from '../../redux/slices/assets';
+import { getLazyMintedItems, getListedSellItems } from '../../redux/slices/assets';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // routes
@@ -62,7 +62,7 @@ export default function AssetList() {
   const dispatch = useDispatch();
   const [filters, setFilters] = useState('latest');
   const { posts, hasMore, index, step } = useSelector((state) => state.blog);
-  const { itemList } = useSelector((state) => state.assets);
+  const { itemList, listedSellItems, listedSellItem } = useSelector((state) => state.assets);
   const sortedPosts = applySort(posts, filters);
   const onScroll = useCallback(() => dispatch(getMorePosts()), [dispatch]);
 
@@ -74,7 +74,9 @@ export default function AssetList() {
     dispatch(getLazyMintedItems());
   }, [dispatch]);
 
-  console.log(itemList);
+  useEffect(() => {
+    console.log(listedSellItems);
+  }, [listedSellItems]);
 
   const handleChangeSort = (event) => {
     setFilters(event.target.value);
@@ -99,16 +101,16 @@ export default function AssetList() {
 
         <InfiniteScroll
           next={onScroll}
-          hasMore={hasMore}
+          // hasMore={hasMore}
           loader={SkeletonLoad}
-          dataLength={posts.length}
+          dataLength={listedSellItems.length}
           style={{ overflow: 'inherit' }}
         >
           <Grid container spacing={3}>
             {/* {sortedPosts.map((post, index) => (
               <ItemCard key={post.id} post={post} index={index} />
             ))} */}
-            {itemList.map((item) => (
+            {listedSellItems.map((item) => (
               <ItemCard key={item._id} data={item} />
             ))}
           </Grid>
